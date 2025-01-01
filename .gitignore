@@ -1,3 +1,11 @@
 .vscode
 .git
 .DS_Store
+.idea
+
+*.o
+*.[eE]xe
+*.out
+*.app
+
+.gitignore
