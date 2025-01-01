@@ -10,7 +10,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include "Correc_Prof/game.h"
+#include "include/game.h"
 
 using namespace std;
 

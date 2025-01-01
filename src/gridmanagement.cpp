@@ -1,8 +1,8 @@
 #include <iostream>
 #include <iomanip>
-#include "gridmanagement.h"
+#include "../include/gridmanagement.h"
 
-#include "type.h" //nos types
+#include "../include/type.h" //nos types
 
 
 using namespace std;
@@ -20,7 +20,7 @@ void Color (const string & Col)
 } // Color ()
 
 
-void DisplayGrid (const CMat & Mat)
+void DisplayGrid (const Grid & Mat)
 {
     const unsigned KNbLine = Mat.size ();
     const unsigned KNbCol  = Mat[0].size ();
@@ -55,11 +55,11 @@ void DisplayGrid (const CMat & Mat)
 }// ShowMatrix ()
 
 
-void InitGrid (CMat & Mat, unsigned NbLine, unsigned NbColumn, CPosition & PosPlayer1, CPosition & PosPlayer2)
+void InitGrid (Grid & Mat, unsigned NbLine, unsigned NbColumn, GridCoordinates & PosPlayer1, GridCoordinates & PosPlayer2)
 {
     Mat.resize (NbLine);
-    const CVLine KLine (NbColumn, KEmpty);
-    for (CVLine &ALine : Mat)
+    const GridRow KLine (NbColumn, KEmpty);
+    for (GridRow &ALine : Mat)
         ALine = KLine;
 
     PosPlayer1.first = 0;

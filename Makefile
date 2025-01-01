@@ -18,7 +18,7 @@ OBJECTS = $(SOURCES:.cpp=.o)
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o bin/$(EXECUTABLE)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXECUTABLE)
 
 # Règle générique pour la compilation des .cpp en .o
 %.o: %.cpp

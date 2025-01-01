@@ -1,14 +1,14 @@
 #include <iostream>
 
-#include "game.h"
-#include "params.h"
-#include "gridmanagement.h"
+#include "../include/game.h"
+#include "../include/params.h"
+#include "../include/gridmanagement.h"
 
 #include <map>
 using namespace std;
 
 
-void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
+void MoveToken (Grid & Mat, const char & Move, GridCoordinates & Pos)
 {
     char car = Mat [Pos.first][Pos.second];
     Mat [Pos.first][Pos.second] = KEmpty;
@@ -62,12 +62,12 @@ int ppal (void)
     const unsigned KSize (10);
     unsigned PartyNum (1);
     const unsigned KMaxPartyNum (KSize * KSize);
-    CMat Mat;
+    Grid Mat;
 
     bool Player1Turn (true);
     bool Victory (false);
 
-    CPosition PosPlayer1, PosPlayer2;
+    GridCoordinates PosPlayer1, PosPlayer2;
 
 
     InitGrid(Mat, 10, 10, PosPlayer1, PosPlayer2);

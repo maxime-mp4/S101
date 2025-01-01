@@ -1,4 +1,3 @@
-
 #ifndef GAME_H
 #define GAME_H
 
@@ -21,7 +20,7 @@
  * \param[in, out] Pos the player's position before and after the move
  */
 
-void MoveToken (CMat & Mat, const char & Move, CPosition & Pos);
+void MoveToken (Grid & Mat, const char & Move, GridCoordinates & Pos);
 
 /**
  * @brief new main

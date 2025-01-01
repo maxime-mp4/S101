@@ -1,5 +1,6 @@
 #ifndef TYPE_H
 #define TYPE_H
+
 /*!
  * \file type.h
  * \brief Definition of usefull types or aliases for the project
@@ -13,21 +14,23 @@
 #include <vector>
 #include <map>
 
-/**
- * @brief CVLine : alias to a line of the matrix
- */
-typedef std::vector <char> CVLine;
+using namespace std;
 
 /**
- * @brief CMat : alias to a game grid type
- * @typedef std::vector <CVLine> CMat;
+ * @brief GridRow : alias to a line of the matrix
  */
-typedef std::vector <CVLine> CMat;
+typedef vector <char> GridRow;
 
 /**
- * @brief CPosition : a pair gathering the coordinates in the grid
+ * @brief Grid : alias to a game grid type
+ * @typedef vector <GridRow> Grid;
  */
-typedef std::pair <unsigned, unsigned> CPosition;
+typedef vector <GridRow> Grid;
+
+/**
+ * @brief GridCoordinates : a pair gathering the coordinates in the grid
+ */
+typedef pair <unsigned, unsigned> GridCoordinates;
 
 
 
@@ -36,11 +39,11 @@ typedef std::pair <unsigned, unsigned> CPosition;
  */
 struct AuthorizedKey {
     /** List of authorized key for the type char in a struct CMyParam*/
-    const std::vector <std::string> VParamChar {"KeyUp", "KeyDown", "KeyLeft", "KeyRight", "TokenP1", "TokenP2"};
+    const vector <string> VParamChar {"KeyUp", "KeyDown", "KeyLeft", "KeyRight", "TokenP1", "TokenP2"};
     /** List of authorized key for the type string in a struct CMyParam*/
-    const std::vector <std::string> VParamString {"ColorP1", "ColorP2"};
+    const vector <string> VParamString {"ColorP1", "ColorP2"};
     /** List of authorized key for the type unsigned in a struct CMyParam*/
-    const std::vector <std::string> VParamUnsigned {"NbRow", "NbColumn"};
+    const vector <string> VParamUnsigned {"NbRow", "NbColumn"};
 };
 
 /**
@@ -52,7 +55,7 @@ const AuthorizedKey KAuthorizedKey;
   * @brief KColor : map between the "human" color and its correspondence for the Unix terminal
   */
 
-const std::map <std::string, std::string> KColor
+const map <string, string> KColor
 {
   {"KReset", "0"},
   {"KBlack", "30"},
@@ -60,7 +63,7 @@ const std::map <std::string, std::string> KColor
   {"KGreen", "32"},
   {"KYellow", "33"},
   {"KBlue", "34"},
-  {"KMAgenta", "35"},
+  {"KMagenta", "35"},
   {"KCyan", "36"},
 
 };
@@ -68,6 +71,6 @@ const std::map <std::string, std::string> KColor
 /**
  * @brief KEmpty : character for an empty cell
  */
-const char KEmpty        = ' ';
+const char KEmpty = ' ';
 
 #endif // TYPE_H
