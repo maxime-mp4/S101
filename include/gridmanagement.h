@@ -34,17 +34,17 @@ void Color (const std::string & Col);
  * @param[in] Params : : List of usefull parameters
  * @fn void DisplayGrid (const Grid & Mat, const CMyParam & Params, bool ShowLineNumber = true, bool ShowColor = true);
  */
-void DisplayGrid (const Grid & Mat);
+void DisplayGrid (const Grid & Mat, const GameSettings & settings);
 
 
 /*!
  * \brief Initialization of the Matrix from scratch
  * \param[out] Mat the matrix to be initialized
  * \param[in] Parms Set of game's parameters
- * \param[out] PosPlayer1 position of the first player's token in Mat
- * \param[out] PosPlayer2 position of the second player's token in Mat
- * @fn void InitGrid (Grid & Mat, const CMyParam & Params, GridCoordinates & PosPlayer1, GridCoordinates & PosPlayer2);
+ * \param[out] CoordPlayer1 position of the first player's token in Mat
+ * \param[out] CoordPlayer2 position of the second player's token in Mat
+ * @fn void InitGrid (Grid & Mat, const CMyParam & Params, GridCoordinates & CoordPlayer1, GridCoordinates & CoordPlayer2);
  */
-void InitGrid (Grid & Mat, unsigned NbLine, unsigned NbColumn, GridCoordinates & PosPlayer1, GridCoordinates & PosPlayer2);
+void InitGrid (Grid & Mat, unsigned NbLine, unsigned NbColumn, GridCoordinates & CoordPlayer1, GridCoordinates & CoordPlayer2, const GameSettings & settings);
 
 #endif // GRIDMANAGEMENT_H

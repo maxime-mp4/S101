@@ -1,95 +1,108 @@
 #include <iostream>
 
 #include "../include/game.h"
-#include "../include/params.h"
+#include "../include/settings.h"
 #include "../include/gridmanagement.h"
 
 #include <map>
 using namespace std;
 
 
-void MoveToken (Grid & Mat, const char & Move, GridCoordinates & Pos)
+void MoveToken (Grid & Mat, const char & Move, GridCoordinates & Pos, GameKeybinds & keybinds)
 {
-    char car = Mat [Pos.first][Pos.second];
-    Mat [Pos.first][Pos.second] = KEmpty;
+    char car = Mat[Pos.first][Pos.second];
+    Mat[Pos.first][Pos.second] = KEmpty;
 
-    switch (Move)
-    {
-    case 'A':
-        if(Mat[Pos.first].size() <= Pos.first - 1 || Mat[Pos.second].size() <= Pos.second - 1) break;
-        -- Pos.first;
-        -- Pos.second;
-        break;
-    case 'Z':
-        if(Mat[Pos.first].size() <= Pos.first - 1) break;
-        --Pos.first;
-        break;
-    case 'E':
-        if(Mat[Pos.first].size() <= Pos.first - 1 || Mat[Pos.second].size() <= Pos.second + 1) break;
-        --Pos.first;
-        ++Pos.second;
-        break;
-    case 'Q':
-        if(Mat[Pos.second].size() <= Pos.second - 1) break;
-        --Pos.second;
-        break;
-    case 'D':
-        if(Mat[Pos.second].size() <= Pos.second + 1) break;
-        ++Pos.second;
-        break;
-    case 'W':
-        if(Mat[Pos.first].size() <= Pos.first + 1 || Mat[Pos.second].size() <= Pos.second - 1) break;
-        ++Pos.first;
-        --Pos.second;
-        break;
-    case 'X':
-        if(Mat[Pos.first].size() <= Pos.first + 1) break;
-        ++Pos.first;
-        break;
-    case 'C':
-        if(Mat[Pos.first].size() <= Pos.first + 1 || Mat[Pos.second].size() <= Pos.second + 1) break;
-        ++Pos.first;
-        ++Pos.second;
-        break;
+    // Calcul des nouvelles positions potentielles
+    unsigned new_row = Pos.first;
+    unsigned new_col = Pos.second;
+
+    if (Move == keybinds.KeyUpLeft) { // Haut-gauche
+        new_row--;
+        new_col--;
     }
-    Mat [Pos.first][Pos.second] = car;
-} //MoveToken ()
+    else if (Move == keybinds.KeyUp) { // Haut
+        new_row--;
+    }
+    else if (Move == keybinds.KeyUpRight) { // Haut-droite
+        new_row--;
+        new_col++;
+    }
+    else if (Move == keybinds.KeyLeft) { // Gauche
+        new_col--;
+    }
+    else if (Move == keybinds.KeyRight) { // Droite
+        new_col++;
+    }
+    else if (Move == keybinds.KeyDownLeft) { // Bas-gauche
+        new_row++;
+        new_col--;
+    }
+    else if (Move == keybinds.KeyDown) { // Bas
+        new_row++;
+    }
+    else if (Move == keybinds.KeyDownRight) { // Bas-droite
+        new_row++;
+        new_col++;
+    }
+    else {
+        // Mouvement invalide, ne rien faire
+    }
 
 
-int ppal (void)
+    // Vérifie si les nouvelles coordonnées sont valides
+    if (new_row >= 0 && new_row < Mat.size() &&
+        new_col >= 0 && new_col < Mat[0].size())
+    {
+        Pos.first = new_row;
+        Pos.second = new_col;
+    }
+
+    // Replace le caractère à la nouvelle position
+    Mat[Pos.first][Pos.second] = car;
+} // MoveToken ()
+
+
+int ppal ()
 {
+
+    GameKeybinds keybinds;
+    GameSettings settings;
+    loadSettings(keybinds, settings);
 
     const unsigned KSize (10);
     unsigned PartyNum (1);
-    const unsigned KMaxPartyNum (KSize * KSize);
+    const unsigned KMaxPartyNum (100000000000000);
     Grid Mat;
 
-    bool Player1Turn (true);
+    srand(time(0));
+    int randomNum = rand() % 2;
+
+    bool Player1Turn (randomNum);
     bool Victory (false);
 
-    GridCoordinates PosPlayer1, PosPlayer2;
+    GridCoordinates CoordPlayer1, CoordPlayer2;
 
 
-    InitGrid(Mat, 10, 10, PosPlayer1, PosPlayer2);
+    InitGrid(Mat, 10, 30, CoordPlayer1, CoordPlayer2, settings);
 
-    DisplayGrid (Mat);
+    DisplayGrid (Mat, settings);
 
     while (PartyNum <= KMaxPartyNum && ! Victory)
     {
 
-        cout << "tour numero : " << PartyNum << ", Joueur"
-             << (Player1Turn ? '1' : '2') << ", entrez un déplacement : ";
-        cout << Mat[PosPlayer2.first].size() << Mat[PosPlayer2.second].size();
+        cout << PartyNum  << (PartyNum == 1 ? "er" : "eme") << " tour." << endl << "Joueur "
+             << (Player1Turn ? "1 (X)" : "2 (O)") << ", entrez un déplacement : " << endl;
         char Move;
         cin >> Move;
 
         Move = toupper (Move);
-        MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2));
+        MoveToken (Mat, Move, (Player1Turn ? CoordPlayer1: CoordPlayer2), keybinds);
         ClearScreen();
-        DisplayGrid (Mat);
+        DisplayGrid (Mat, settings);
 
         //Victiry test
-        if (PosPlayer1 == PosPlayer2) Victory = true;
+        if (CoordPlayer1 == CoordPlayer2) Victory = true;
 
         //Increase party's number
         ++PartyNum;

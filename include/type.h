@@ -73,4 +73,30 @@ const map <string, string> KColor
  */
 const char KEmpty = ' ';
 
+
+/**
+ * @brief CMyParamV2 : structure of all settings
+
+ */
+
+struct GameKeybinds {
+    char KeyUp = 'Z';         // Haut
+    char KeyDown = 'X';       // Bas
+    char KeyLeft = 'Q';       // Gauche
+    char KeyRight = 'D';      // Droite
+    char KeyUpLeft = 'A';     // Haut-gauche
+    char KeyUpRight = 'E';    // Haut-droite
+    char KeyDownLeft = 'W';   // Bas-gauche
+    char KeyDownRight = 'C';  // Bas-droite
+};
+
+struct GameSettings {
+    size_t NbColumn = 10;     // Nombre de colonnes dans la grille
+    size_t NbRow = 10;        // Nombre de lignes dans la grille
+    char tokenP1 = 'X';       // Symbole du joueur 1
+    char tokenP2 = 'Y';       // Symbole du joueur 2
+    std::string ColorP1 = "Blue";  // Couleur du joueur 1
+    std::string ColorP2 = "Green"; // Couleur du joueur 2
+};
+
 #endif // TYPE_H

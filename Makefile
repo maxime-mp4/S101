@@ -9,6 +9,7 @@ CXXFLAGS = -std=c++11 -Wall -Wextra -O2
 SOURCES = \
     src/game.cpp \
     src/gridmanagement.cpp \
+    src/settings.cpp \
     main.cpp
 
 # Générez une liste d'objets à partir des sources

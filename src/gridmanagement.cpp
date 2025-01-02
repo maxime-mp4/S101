@@ -20,7 +20,7 @@ void Color (const string & Col)
 } // Color ()
 
 
-void DisplayGrid (const Grid & Mat)
+void DisplayGrid (const Grid & Mat, const GameSettings & settings)
 {
     const unsigned KNbLine = Mat.size ();
     const unsigned KNbCol  = Mat[0].size ();
@@ -31,23 +31,19 @@ void DisplayGrid (const Grid & Mat)
         for (char c : Mat[i])
         {
 
-            switch (c)
-            {
-            case KEmpty:
+            if (c == settings.tokenP1) {
+                Color(KColor.find("KBlue")->second); // Couleur pour le joueur 1
                 cout << c;
-                break;
-            case 'X':
-                Color (KColor.find("KBlue")->second);
+                Color(KColor.find("KReset")->second); // Réinitialiser la couleur
+            } else if (c == settings.tokenP2) {
+                Color(KColor.find("KRed")->second); // Couleur pour le joueur 2
                 cout << c;
-                Color (KColor.find("KReset")->second);
-                break;
-            case 'O':
-                Color (KColor.find("KBlue")->second);
-                cout << c;
-                Color (KColor.find("KReset")->second);
-                break;
-
+                Color(KColor.find("KReset")->second); // Réinitialiser la couleur
+            } else {
+                cout << c; // Cas par défaut, afficher sans couleur
             }
+
+
         }
         cout << '|' << endl;
     }
@@ -55,17 +51,17 @@ void DisplayGrid (const Grid & Mat)
 }// ShowMatrix ()
 
 
-void InitGrid (Grid & Mat, unsigned NbLine, unsigned NbColumn, GridCoordinates & PosPlayer1, GridCoordinates & PosPlayer2)
+void InitGrid (Grid & Mat, unsigned NbLine, unsigned NbColumn, GridCoordinates & CoordPlayer1, GridCoordinates & CoordPlayer2, const GameSettings & settings)
 {
     Mat.resize (NbLine);
     const GridRow KLine (NbColumn, KEmpty);
     for (GridRow &ALine : Mat)
         ALine = KLine;
 
-    PosPlayer1.first = 0;
-    PosPlayer1.second = NbColumn - 1;
-    Mat [PosPlayer1.first][PosPlayer1.second] = 'X';
-    PosPlayer2.first = NbLine - 1;
-    PosPlayer2.second =0;
-    Mat [PosPlayer2.first][PosPlayer2.second]   = 'O';
+    CoordPlayer1.first = 0;
+    CoordPlayer1.second = NbColumn - 1;
+    Mat [CoordPlayer1.first][CoordPlayer1.second] = settings.tokenP1;
+    CoordPlayer2.first = NbLine - 1;
+    CoordPlayer2.second =0;
+    Mat [CoordPlayer2.first][CoordPlayer2.second]   = settings.tokenP2;
 }//InitMat ()
