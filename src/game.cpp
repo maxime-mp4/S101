@@ -1,113 +1,155 @@
 #include <iostream>
+#include <bits/stdc++.h>
 
 #include "../include/game.h"
-#include "../include/params.h"
+#include "../include/settings.h"
 #include "../include/gridmanagement.h"
 
 #include <map>
 using namespace std;
 
 
-void MoveToken (Grid & Mat, const char & Move, GridCoordinates & Pos)
+void moveToken (Grid & gameGrid, const char & MOVEMENT, User &currentPlayer, const GameKeybinds &KEYBINDS)
 {
-    char car = Mat [Pos.first][Pos.second];
-    Mat [Pos.first][Pos.second] = KEmpty;
 
-    switch (Move)
-    {
-    case 'A':
-        if(Mat[Pos.first].size() <= Pos.first - 1 || Mat[Pos.second].size() <= Pos.second - 1) break;
-        -- Pos.first;
-        -- Pos.second;
-        break;
-    case 'Z':
-        if(Mat[Pos.first].size() <= Pos.first - 1) break;
-        --Pos.first;
-        break;
-    case 'E':
-        if(Mat[Pos.first].size() <= Pos.first - 1 || Mat[Pos.second].size() <= Pos.second + 1) break;
-        --Pos.first;
-        ++Pos.second;
-        break;
-    case 'Q':
-        if(Mat[Pos.second].size() <= Pos.second - 1) break;
-        --Pos.second;
-        break;
-    case 'D':
-        if(Mat[Pos.second].size() <= Pos.second + 1) break;
-        ++Pos.second;
-        break;
-    case 'W':
-        if(Mat[Pos.first].size() <= Pos.first + 1 || Mat[Pos.second].size() <= Pos.second - 1) break;
-        ++Pos.first;
-        --Pos.second;
-        break;
-    case 'X':
-        if(Mat[Pos.first].size() <= Pos.first + 1) break;
-        ++Pos.first;
-        break;
-    case 'C':
-        if(Mat[Pos.first].size() <= Pos.first + 1 || Mat[Pos.second].size() <= Pos.second + 1) break;
-        ++Pos.first;
-        ++Pos.second;
-        break;
+    char car = gameGrid[currentPlayer.coordinates.first][currentPlayer.coordinates.second];
+    gameGrid[currentPlayer.coordinates.first][currentPlayer.coordinates.second] = EMPTY_CHAR;
+
+    // Calcul des nouvelles positions potentielles
+    unsigned new_row = currentPlayer.coordinates.first;
+    unsigned new_col = currentPlayer.coordinates.second;
+
+    if (MOVEMENT == KEYBINDS.keyUpLeft) { // Haut-gauche
+        new_row--;
+        new_col--;
     }
-    Mat [Pos.first][Pos.second] = car;
-} //MoveToken ()
+    else if (MOVEMENT == KEYBINDS.keyUp) { // Haut
+        new_row--;
+    }
+    else if (MOVEMENT == KEYBINDS.keyUpRight) { // Haut-droite
+        new_row--;
+        new_col++;
+    }
+    else if (MOVEMENT == KEYBINDS.keyLeft) { // Gauche
+        new_col--;
+    }
+    else if (MOVEMENT == KEYBINDS.keyRight) { // Droite
+        new_col++;
+    }
+    else if (MOVEMENT == KEYBINDS.keyDownLeft) { // Bas-gauche
+        new_row++;
+        new_col--;
+    }
+    else if (MOVEMENT == KEYBINDS.keyDown) { // Bas
+        new_row++;
+    }
+    else if (MOVEMENT == KEYBINDS.keyDownRight) { // Bas-droite
+        new_row++;
+        new_col++;
+    }
+    else {
+        // Mouvement invalide, ne rien faire
+    }
 
 
-int ppal (void)
+    // Vérifie si les nouvelles coordonnées sont valides
+    if (new_row >= 0 && new_row < gameGrid.size() &&
+        new_col >= 0 && new_col < gameGrid[0].size())
+    {
+        if (gameGrid[new_row][new_col] != '#')
+            {
+            currentPlayer.coordinates.first = new_row;
+            currentPlayer.coordinates.second = new_col;
+        }
+    }
+
+    // Replace le caractère à la nouvelle position
+    gameGrid[currentPlayer.coordinates.first][currentPlayer.coordinates.second] = car;
+} // MoveToken ()
+
+
+int ppal ()
 {
 
-    const unsigned KSize (10);
-    unsigned PartyNum (1);
-    const unsigned KMaxPartyNum (KSize * KSize);
-    Grid Mat;
+    GameKeybinds keybinds;
+    GameSettings settings;
+    loadSettings(keybinds, settings);
+    size_t players;
+    cout << "Bvn, entrez le nbr de joueur : ";
+    cin >> players;
+    vector<User> userList;
 
-    bool Player1Turn (true);
+    if (players < 2 || players > 4) {
+        cout << "Invalid number, please try again." << endl;
+        exit(2);
+    }
+
+
+    for (size_t i = 0; i < players; ++i) {
+        User user;
+        cout << "Joueur " << i + 1 << " entrez votre token, color et name ";
+        cin >> user.token >> user.color >> user.name;
+        transform(user.color.begin(), user.color.end(), user.color.begin(),
+              ::toupper);
+        userList.push_back(user);
+    }
+
+    unsigned PartyNum (1);
+    const unsigned KMaxPartyNum (500);
+    Grid GameGrid;
+
     bool Victory (false);
 
-    GridCoordinates PosPlayer1, PosPlayer2;
 
+    InitGrid(GameGrid, 10, 100, userList);
 
-    InitGrid(Mat, 10, 10, PosPlayer1, PosPlayer2);
-
-    DisplayGrid (Mat);
+    DisplayGrid (GameGrid, userList);
 
     while (PartyNum <= KMaxPartyNum && ! Victory)
     {
 
-        cout << "tour numero : " << PartyNum << ", Joueur"
-             << (Player1Turn ? '1' : '2') << ", entrez un déplacement : ";
-        cout << Mat[PosPlayer2.first].size() << Mat[PosPlayer2.second].size();
-        char Move;
-        cin >> Move;
+        cout << PartyNum  << (PartyNum == 1 ? "er" : "eme") << " tour." << endl << "Joueur "
+             << settings.currentUserTurn+1 << ", entrez un déplacement : " << endl;
+        string input;
+        char inputChar;
+/*
+        cout << keybinds.KeyUpLeft << " " << keybinds.KeyUp << " " << keybinds.KeyUpRight << endl;
+        cout << keybinds.KeyLeft << "   " << keybinds.KeyRight << endl;
+        cout << keybinds.KeyDownLeft << " " << keybinds.KeyDown << " " << keybinds.KeyDownRight << endl;*/
+        getline(cin,input);
 
-        Move = toupper (Move);
-        MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2));
-        ClearScreen();
-        DisplayGrid (Mat);
+        inputChar = toupper (input[0]);
+
+        moveToken (GameGrid, inputChar, userList[settings.currentUserTurn], keybinds);
+
+
+        clearScreen();
+        DisplayGrid (GameGrid, userList);
 
         //Victiry test
-        if (PosPlayer1 == PosPlayer2) Victory = true;
+        //if (CoordPlayer1 == CoordPlayer2) Victory = true;
 
         //Increase party's number
         ++PartyNum;
 
         //Player changing
-        Player1Turn = !Player1Turn;
+
+        ++settings.currentUserTurn;
+        settings.currentUserTurn %= userList.size();
+
     }//while (no victory)
 
     if (!Victory)
     {
-        Color (KColor.find("KMAgenta")->second);
+        color (COLORS.find("MAGENTA")->second);
         cout << "Aucun vainqueur" << endl;
-        return 1;
+    } else {
+        color (COLORS.find("GREEN")->second);
+        cout << "Félicitations Joueur" << (settings.currentUserTurn)
+             << " vous avez gagné :)" << endl;
+        color (COLORS.find("RESET")->second);
     }
 
-    Color (KColor.find("KGreen")->second);
-    cout << "Félicitations Joueur" << (Player1Turn ? '2' : '1')
-         << " vous avez gagné :)" << endl;
-    Color (KColor.find("KReset")->second);
+
     return 0;
 } //ppal ()

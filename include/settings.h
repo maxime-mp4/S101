@@ -2,7 +2,7 @@
 #define PARAMS_H
 
 /**
- * \file params.h
+ * \file settings.h
  * \brief Paramters' definition and associated functions
  * \author Alain Casali
  * \author Marc Laporte
@@ -12,6 +12,7 @@
 
 #include "type.h"
 
+void loadSettings (GameKeybinds & keybinds, GameSettings & settings);
 
 
 /**
