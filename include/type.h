@@ -49,30 +49,32 @@ struct AuthorizedKey {
 /**
  * @brief KAuthorizedKey
  */
-const AuthorizedKey KAuthorizedKey;
+const AuthorizedKey AUTHORIZED_KEY;
 
 /**
   * @brief KColor : map between the "human" color and its correspondence for the Unix terminal
   */
 
-const map <string, string> KColor
+const map <string, string> COLORS
 {
-  {"KReset", "0"},
-  {"KBlack", "30"},
-  {"KRed", "31"},
-  {"KGreen", "32"},
-  {"KYellow", "33"},
-  {"KBlue", "34"},
-  {"KMagenta", "35"},
-  {"KCyan", "36"},
+  {"RESET", "0"},
+  {"BLACK", "30"},
+  {"RED", "31"},
+  {"GREEN", "32"},
+  {"YELLOW", "33"},
+  {"BLUE", "34"},
+  {"MAGENTA", "35"},
+  {"CYAN", "36"},
 
 };
 
 /**
  * @brief KEmpty : character for an empty cell
  */
-const char KEmpty = ' ';
+const char EMPTY_CHAR = ' ';
 
+const vector<string> BONUS_LIST = {"TURN_STEALING", "THROUGH_WALLS", "MOVING_FASTER"};
+const vector<string> CHEAT_LIST = {"HATECPP", "RACISM", "123456789"};
 
 /**
  * @brief CMyParamV2 : structure of all settings
@@ -80,23 +82,30 @@ const char KEmpty = ' ';
  */
 
 struct GameKeybinds {
-    char KeyUp = 'Z';         // Haut
-    char KeyDown = 'X';       // Bas
-    char KeyLeft = 'Q';       // Gauche
-    char KeyRight = 'D';      // Droite
-    char KeyUpLeft = 'A';     // Haut-gauche
-    char KeyUpRight = 'E';    // Haut-droite
-    char KeyDownLeft = 'W';   // Bas-gauche
-    char KeyDownRight = 'C';  // Bas-droite
+    char keyUp;         // Haut
+    char keyDown;       // Bas
+    char keyLeft;       // Gauche
+    char keyRight;      // Droite
+    char keyUpLeft;     // Haut-gauche
+    char keyUpRight;    // Haut-droite
+    char keyDownLeft;   // Bas-gauche
+    char keyDownRight;  // Bas-droite
 };
 
 struct GameSettings {
-    size_t NbColumn = 10;     // Nombre de colonnes dans la grille
-    size_t NbRow = 10;        // Nombre de lignes dans la grille
-    char tokenP1 = 'X';       // Symbole du joueur 1
-    char tokenP2 = 'Y';       // Symbole du joueur 2
-    std::string ColorP1 = "Blue";  // Couleur du joueur 1
-    std::string ColorP2 = "Green"; // Couleur du joueur 2
+    size_t gridColumns = 10;     // Nombre de colonnes dans la grille
+    size_t gridRows = 30;        // Nombre de lignes dans la grille
+    unsigned short int wallFrequency;
+    unsigned short int bonusFrequency;
+    unsigned short int currentUserTurn = 0;
+};
+
+struct User {
+    unsigned short int currentBonus;
+    char token;
+    string color;
+    string name;
+    GridCoordinates coordinates = {100,100};
 };
 
 #endif // TYPE_H

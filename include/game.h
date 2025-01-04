@@ -16,11 +16,11 @@
 /*!
  * \brief Move the current token according to the character in the 2nd parameter
  * \param[in, out] Mat the matrix before and after the move
- * \param[in] Move the key pressed by the user
+ * \param[in] movement the key pressed by the user
  * \param[in, out] Pos the player's position before and after the move
  */
 
-void MoveToken (Grid & Mat, const char & Move, GridCoordinates & Pos);
+void moveToken (Grid & gameGrid, const char & MOVEMENT, User &currentPlayer, const GameKeybinds &KEYBINDS);
 
 /**
  * @brief new main
