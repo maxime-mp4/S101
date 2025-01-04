@@ -3,7 +3,7 @@ EXECUTABLE = myapp
 
 # Compilateur et options
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -O2
+CXXFLAGS = -std=c++11 -Wall -Wextra -O2 -g
 
 # Fichiers sources
 SOURCES = \
