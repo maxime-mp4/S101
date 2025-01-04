@@ -41,7 +41,9 @@ void setRawMode(bool enable, struct termios& oldt) {
 int main()
 {
     struct termios oldt;
-    setRawMode(true, oldt);
+
+    //setRawMode(true, oldt);
+
     try
     {
         return ppal ();
