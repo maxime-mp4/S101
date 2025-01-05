@@ -9,8 +9,10 @@
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>
+#include <yaml-cpp/yaml.h>
 
 #include "include/game.h"
+#include "include/settings.h"
 
 using namespace std;
 
@@ -44,16 +46,10 @@ int main()
 
     //setRawMode(true, oldt);
 
-    try
-    {
-        return ppal ();
-    }
-    catch (...)
-    {
-        cerr << "ca c'est mal passe quelque part" << endl;
-        return 1;
-    }
-    setRawMode(false, oldt);
+        testVoid();
+        //return ppal ();
+
+    //setRawMode(false, oldt);
 } //main ()
 
 

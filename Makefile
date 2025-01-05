@@ -3,7 +3,8 @@ EXECUTABLE = myapp
 
 # Compilateur et options
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -O2 -g
+CXXFLAGS = -std=c++11 -Wall -Wextra -O2 -g -I$(HOME)/local/include
+LDFLAGS = -L$(HOME)/local/lib -lyaml-cpp
 
 # Fichiers sources
 SOURCES = \
@@ -19,7 +20,7 @@ OBJECTS = $(SOURCES:.cpp=.o)
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXECUTABLE)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) $(LDFLAGS) -o $(EXECUTABLE)
 
 # Règle générique pour la compilation des .cpp en .o
 %.o: %.cpp

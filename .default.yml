@@ -1,0 +1,16 @@
+keyUp             : Z
+keyDown           : X
+keyLeft           : Q
+keyRight          : D
+keyUpLeft         : A
+keyUpRight        : E
+keyDownLeft       : W
+keyDownRight      : C
+keyHelp           : /
+keyInventory      : I
+gridColumns       : 10
+gridRows          : 10
+wallFrequency     : 30
+bonusFrequency    : 10
+canTeleport       : false
+currentUserTurn   : 1

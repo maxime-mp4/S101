@@ -72,6 +72,7 @@ const map <string, string> COLORS
  * @brief KEmpty : character for an empty cell
  */
 const char EMPTY_CHAR = ' ';
+const char WALL_CHAR = '#';
 
 const vector<string> BONUS_LIST = {"TURN_STEALING", "THROUGH_WALLS", "MOVING_FASTER"};
 const vector<string> CHEAT_LIST = {"HATECPP", "RACISM", "123456789"};
@@ -81,7 +82,7 @@ const vector<string> CHEAT_LIST = {"HATECPP", "RACISM", "123456789"};
 
  */
 
-struct GameKeybinds {
+struct GameKeyBinds {
     char keyUp;         // Haut
     char keyDown;       // Bas
     char keyLeft;       // Gauche
@@ -90,19 +91,22 @@ struct GameKeybinds {
     char keyUpRight;    // Haut-droite
     char keyDownLeft;   // Bas-gauche
     char keyDownRight;  // Bas-droite
+    char keyHelp;
+    char keyInventory;
 };
 
 struct GameSettings {
-    size_t gridColumns = 10;     // Nombre de colonnes dans la grille
-    size_t gridRows = 30;        // Nombre de lignes dans la grille
-    unsigned short int wallFrequency;
-    unsigned short int bonusFrequency;
-    unsigned short int currentUserTurn = 0;
+    size_t gridColumns;
+    size_t gridRows;
+    unsigned short wallFrequency;
+    unsigned short bonusFrequency;
+    unsigned short currentUserTurn;
+    bool canTeleport;
 };
 
 struct User {
-    unsigned short int currentBonus;
-    char token;
+    vector<vector<string>> inventory;
+    char token ;
     string color;
     string name;
     GridCoordinates coordinates = {100,100};
@@ -111,7 +115,6 @@ struct User {
 
 /**
  * @brief CMyParamV2 : structure of all settings
-
  */
 
 #endif // TYPE_H

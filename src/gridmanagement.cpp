@@ -20,12 +20,14 @@ void color (const string & COL)
 } // Color ()
 
 
+
+
 void DisplayGrid (const Grid & GAME_GRID, const vector<User> & USER_LIST)
 {
     const unsigned KNbLine = GAME_GRID.size ();
     const unsigned KNbCol  = GAME_GRID[0].size ();
 
-    cout << "┌" << string (KNbCol , '-') << "┐" << endl;
+    cout << " " << string (KNbCol , '-') << " " << endl;
 
     for (unsigned i (0); i < KNbLine; ++i)
     {
@@ -47,8 +49,8 @@ void DisplayGrid (const Grid & GAME_GRID, const vector<User> & USER_LIST)
         }
         cout << '|' << endl;
     }
-    cout << "└" << string (KNbCol , '-') << "┘" << endl;
-}// ShowGameGridrix ()
+    cout << " " << string (KNbCol , '-') << " " << endl;
+} // ShowGameGridrix ()
 
 
 #include <cstdlib> // pour rand() et srand()

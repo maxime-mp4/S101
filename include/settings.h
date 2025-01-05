@@ -12,7 +12,8 @@
 
 #include "type.h"
 
-void loadSettings (GameKeybinds & keybinds, GameSettings & settings);
+void testVoid();
+void loadSettings (GameKeyBinds & keyBinds, GameSettings & settings);
 
 
 /**
