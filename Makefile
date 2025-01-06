@@ -17,7 +17,8 @@ SOURCES = \
     main.cpp
 
 # Générez une liste d'objets à partir des sources et placez-les dans le répertoire OBJDIR
-OBJECTS = $(SOURCES:.cpp=$(OBJDIR)/%.o)
+# Nous devons également préserver la structure des répertoires, donc utiliser la fonction `patsubst`
+OBJECTS = $(patsubst src/%, $(OBJDIR)/%, $(SOURCES:.cpp=.o))
 
 # Règle par défaut : construire l'exécutable
 all: $(EXECUTABLE)
@@ -30,7 +31,7 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
 # Règle générique pour la compilation des .cpp en .o dans le répertoire build
-$(OBJDIR)/%.o: %.cpp | $(OBJDIR)
+$(OBJDIR)/%.o: src/%.cpp | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Nettoyage des fichiers intermédiaires et de l'exécutable
