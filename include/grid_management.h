@@ -1,8 +1,8 @@
-#ifndef GRIDMANAGEMENT_H
-#define GRIDMANAGEMENT_H
+#ifndef GRID_MANAGEMENT_H
+#define GRID_MANAGEMENT_H
 
 /*!
- * \file gridmanagement.h
+ * \file grid_management.h
  * \brief Set of usefull functions for the grid management
  * \author Alain Casali
  * \author Marc Laporte
@@ -11,7 +11,8 @@
  */
 
 #include <string>
-#include "type.h" //nos types
+#include "type.h"
+#include "player_management.h" //nos types
 
 using namespace std;
 
@@ -37,7 +38,7 @@ void color (const string & COL);
  * @param USER_LIST
  * @fn void DisplayGrid (const Grid & Mat, const CMyParam & Params, bool ShowLineNumber = true, bool ShowColor = true);
  */
-void DisplayGrid (const Grid & GAME_GRID, const vector<User> &USER_LIST);
+void DisplayGrid (const Grid & GAME_GRID, const vector<Player> &USER_LIST);
 
 
 /*!
@@ -49,6 +50,6 @@ void DisplayGrid (const Grid & GAME_GRID, const vector<User> &USER_LIST);
  */
 
 void InitGrid (Grid & gameGrid, unsigned rows, unsigned columns,
-               vector<User> &USER_LIST);
+               vector<Player> &USER_LIST);
 
-#endif // GRIDMANAGEMENT_H
+#endif // GRID_MANAGEMENT_H

@@ -12,13 +12,13 @@ OBJDIR = build
 # Fichiers sources
 SOURCES = \
     src/game.cpp \
-    src/gridmanagement.cpp \
+    src/grid_management.cpp \
     src/settings.cpp \
+    src/player_management.cpp \
     main.cpp
 
 # Générez une liste d'objets à partir des sources et placez-les dans le répertoire OBJDIR
-# Nous devons également préserver la structure des répertoires, donc utiliser la fonction `patsubst`
-OBJECTS = $(patsubst src/%, $(OBJDIR)/%, $(SOURCES:.cpp=.o))
+OBJECTS = $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.cpp=.o)))
 
 # Règle par défaut : construire l'exécutable
 all: $(EXECUTABLE)
@@ -32,6 +32,10 @@ $(OBJDIR):
 
 # Règle générique pour la compilation des .cpp en .o dans le répertoire build
 $(OBJDIR)/%.o: src/%.cpp | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Règle spécifique pour compiler main.cpp dans build/
+$(OBJDIR)/main.o: main.cpp | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Nettoyage des fichiers intermédiaires et de l'exécutable

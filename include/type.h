@@ -104,15 +104,6 @@ struct GameSettings {
     bool canTeleport;
 };
 
-struct User {
-    vector<vector<string>> inventory;
-    char token ;
-    string color;
-    string name;
-    GridCoordinates coordinates = {100,100};
-    bool isAlive = true;
-};
-
 
 /**
  * @brief CMyParamV2 : structure of all settings

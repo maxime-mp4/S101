@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-#include "../include/gridmanagement.h"
+#include "../include/grid_management.h"
 
 #include "../include/type.h" //nos types
 
@@ -22,7 +22,7 @@ void color (const string & COL)
 
 
 
-void DisplayGrid (const Grid & GAME_GRID, const vector<User> & USER_LIST)
+void DisplayGrid (const Grid & GAME_GRID, const vector<Player> & USER_LIST)
 {
     const unsigned KNbLine = GAME_GRID.size ();
     const unsigned KNbCol  = GAME_GRID[0].size ();
@@ -40,7 +40,7 @@ void DisplayGrid (const Grid & GAME_GRID, const vector<User> & USER_LIST)
                 cout << c;
             }
 
-            for (User u: USER_LIST) {
+            for (Player u: USER_LIST) {
                    if (c != u.token) continue;
                     color(COLORS.find(u.color)->second); // Couleur pour le joueur 1
                     cout << c;
@@ -57,7 +57,7 @@ void DisplayGrid (const Grid & GAME_GRID, const vector<User> & USER_LIST)
 #include <ctime>   // pour time()
 
 void InitGrid (Grid & gameGrid, unsigned rows, unsigned columns,
-               vector<User> &USER_LIST) {
+               vector<Player> &USER_LIST) {
     // Initialisation de la grille avec des cases vides
     gameGrid.resize(rows);
 
@@ -110,7 +110,7 @@ void InitGrid (Grid & gameGrid, unsigned rows, unsigned columns,
     }
 
 
-    for (User u : USER_LIST) {
+    for (Player u : USER_LIST) {
         gameGrid[u.coordinates.first][u.coordinates.second] = u.token;
     }
 }

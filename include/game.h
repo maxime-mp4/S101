@@ -11,7 +11,7 @@
  */
 
 #include "type.h"
-
+#include "player_management.h"
 
 /*!
  * \brief Move the current token according to the character in the 2nd parameter
@@ -20,7 +20,7 @@
  * \param[in, out] Pos the player's position before and after the move
  */
 
-void moveToken (Grid & gameGrid, char & movement, User &currentPlayer, const GameKeyBinds &KEY_BINDS);
+void moveToken (Grid & gameGrid, char & movement, Player &currentPlayer, const GameKeyBinds &KEY_BINDS);
 
 /**
  * @brief new main

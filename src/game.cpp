@@ -3,13 +3,14 @@
 
 #include "../include/game.h"
 #include "../include/settings.h"
-#include "../include/gridmanagement.h"
+#include "../include/grid_management.h"
+#include "../include/player_management.h"
 
 #include <map>
 using namespace std;
 
 
-void moveToken (Grid & gameGrid, char & movement, User &currentPlayer, const GameKeyBinds &KEY_BINDS)
+void moveToken (Grid & gameGrid, char & movement, Player &currentPlayer, const GameKeyBinds &KEY_BINDS)
 {
 
     char car = gameGrid[currentPlayer.coordinates.first][currentPlayer.coordinates.second];
@@ -64,71 +65,6 @@ void moveToken (Grid & gameGrid, char & movement, User &currentPlayer, const Gam
     gameGrid[currentPlayer.coordinates.first][currentPlayer.coordinates.second] = car;
 } // MoveToken ()
 
-void createPlayers(const unsigned short PLAYERS, vector<User> &vPlayer) {
-
-    clearScreen();
-
-    string input;
-
-    for (size_t i = 0; i < PLAYERS; ++i) {
-
-        cout << "Joueur " << (i+1) << endl;
-        User user;
-
-        cout << "-> Entrez votre nom : ";
-        cin >> user.name;
-
-
-        cout << "-> Entrez votre token : ";
-        cin >> input;
-
-        for (User u : vPlayer) {
-
-            while (toupper(input[0]) == u.token) {
-                cout << "Token déjà utilisé !" << endl << "-> Entrez votre token : ";
-                cin >> input;
-            }
-        }
-
-        user.token = toupper(input[0]);
-        size_t j = 0;
-        while (COLORS.find(user.color) == COLORS.end() || user.color == "RESET") {
-            for (const auto&c : COLORS) {
-                if (c.first == "RESET") continue;
-                cout << c.first << "\t";
-            }
-
-            cout << (j > 0 ? "\nInvalide ! " : "\n") << "-> Entrez votre couleur : ";
-            cin >> user.color;
-            transform(user.color.begin(), user.color.end(), user.color.begin(), ::toupper);
-            ++j;
-        }
-
-        clearScreen();
-        vPlayer.push_back(user);
-    }
-}
-
-void eliminatePlayer(const char& playerToken ,vector<User>& users) {
-    for (auto& user : users) {
-        if (user.token == playerToken) {
-            user.isAlive = false; // Le joueur est maintenant mort
-            break; // Sortir dès qu'on a trouvé le joueur
-        }
-    }
-}
-
-char getWinner(vector<User>& users) {
-    for (const auto& user : users) {
-        if (user.isAlive) {
-           return user.token;
-        }
-    }
-
-    return '\0';
-}
-
-
 int ppal ()
 {
 
@@ -136,7 +72,7 @@ int ppal ()
     GameKeyBinds keyBinds{};
     GameSettings settings{};
     unsigned short players;
-    vector<User> vPlayers;
+    vector<Player> vPlayers;
 
     unsigned roundNumber (0);
     constexpr unsigned maxRoundNumber (500);
@@ -172,7 +108,7 @@ int ppal ()
 
         unsigned short int playersAlive = 0;
 
-        for (User& v : vPlayers) {
+        for (Player& v : vPlayers) {
             if (v.isAlive) ++playersAlive;
         }
 
@@ -212,7 +148,7 @@ int ppal ()
         clearScreen();
         DisplayGrid (gameGrid, vPlayers);
 
-        for (User &v : vPlayers) {
+        for (Player &v : vPlayers) {
             if (v.token == vPlayers[settings.currentUserTurn].token) continue;
             if (vPlayers[settings.currentUserTurn].coordinates.first == v.coordinates.first && vPlayers[settings.currentUserTurn].coordinates.second == v.coordinates.second) {
                 eliminatePlayer(v.token, vPlayers);
