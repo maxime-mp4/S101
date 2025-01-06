@@ -20,7 +20,7 @@
  * \param[in, out] Pos the player's position before and after the move
  */
 
-void moveToken (Grid & gameGrid, const char & MOVEMENT, User &currentPlayer, const GameKeyBinds &KEYBINDS);
+void moveToken (Grid & gameGrid, char & movement, User &currentPlayer, const GameKeyBinds &KEY_BINDS);
 
 /**
  * @brief new main

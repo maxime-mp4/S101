@@ -45,9 +45,7 @@ int main()
     struct termios oldt;
 
     //setRawMode(true, oldt);
-
-        testVoid();
-        //return ppal ();
+    return ppal ();
 
     //setRawMode(false, oldt);
 } //main ()

@@ -110,6 +110,7 @@ struct User {
     string color;
     string name;
     GridCoordinates coordinates = {100,100};
+    bool isAlive = true;
 };
 
 

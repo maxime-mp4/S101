@@ -12,9 +12,9 @@
 
 #include "type.h"
 
-void testVoid();
-void loadSettings (GameKeyBinds & keyBinds, GameSettings & settings);
+vector<char> loadSettings (GameKeyBinds & keyBinds, GameSettings & settings);
 
+bool isValidKeyBind(char key, vector<char> vKeyBinds);
 
 /**
  * @brief Initialize the set of parameters from scratch
