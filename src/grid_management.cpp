@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include "../include/grid_management.h"
+#include "../include/terminal_management.h"
 
 #include "../include/type.h" //nos types
 
@@ -9,20 +10,10 @@ using namespace std;
 
 
 
-void clearScreen()
-{
-    cout << "\033[H\033[2J";
-}// ClearScreen ()
-
-void color (const string & COL)
-{
-    cout << "\033[" << COL.c_str () <<"m";
-} // Color ()
 
 
 
-
-void DisplayGrid (const Grid & GAME_GRID, const vector<Player> & USER_LIST)
+void displayGrid (const Grid & GAME_GRID, const vector<Player> & USER_LIST)
 {
     const unsigned KNbLine = GAME_GRID.size ();
     const unsigned KNbCol  = GAME_GRID[0].size ();
@@ -42,9 +33,9 @@ void DisplayGrid (const Grid & GAME_GRID, const vector<Player> & USER_LIST)
 
             for (Player u: USER_LIST) {
                    if (c != u.token) continue;
-                    color(COLORS.find(u.color)->second); // Couleur pour le joueur 1
+                    setColor(COLORS.find(u.color)->second); // Couleur pour le joueur 1
                     cout << c;
-                    color(COLORS.find("RESET")->second);
+                    setColor(COLORS.find("RESET")->second);
                 }
         }
         cout << '|' << endl;
@@ -56,8 +47,9 @@ void DisplayGrid (const Grid & GAME_GRID, const vector<Player> & USER_LIST)
 #include <cstdlib> // pour rand() et srand()
 #include <ctime>   // pour time()
 
-void InitGrid (Grid & gameGrid, unsigned rows, unsigned columns,
-               vector<Player> &USER_LIST) {
+
+void initGrid (Grid & gameGrid, unsigned rows, unsigned columns,
+               vector<Player> & vPlayer, const GameSettings &SETTINGS) {
     // Initialisation de la grille avec des cases vides
     gameGrid.resize(rows);
 
@@ -69,7 +61,7 @@ void InitGrid (Grid & gameGrid, unsigned rows, unsigned columns,
 
     // Génération des murs aléatoires
     srand(static_cast<unsigned>(time(0))); // Initialisation du générateur de nombres aléatoires
-    int nombre_murs = static_cast<int>((rows * columns) * 0.1); // 20% des cases sont des murs
+    int nombre_murs = static_cast<int>((rows * columns) * double(SETTINGS.wallFrequency)/100.0); // 20% des cases sont des murs
 
     for (int i = 0; i < nombre_murs; ++i) {
         int x = rand() % rows;
@@ -77,8 +69,8 @@ void InitGrid (Grid & gameGrid, unsigned rows, unsigned columns,
 
         // Vérifie que la case est vide et n'est pas occupée par un joueur
         if (gameGrid[x][y] == EMPTY_CHAR) {
-            gameGrid[x][y] = '#'; // KWall représente un mur
-        } else if (gameGrid[x][y] != EMPTY_CHAR && gameGrid[x][y] != '#') {
+            gameGrid[x][y] = WALL_CHAR; // KWall représente un mur
+        } else if (gameGrid[x][y] != EMPTY_CHAR && gameGrid[x][y] != WALL_CHAR) {
             gameGrid[x][y] = 'P'; // KWall représente un mur
         } else {
             --i; // Réessayer si la case est déjà occupée
@@ -88,7 +80,7 @@ void InitGrid (Grid & gameGrid, unsigned rows, unsigned columns,
     // Placement des joueurs
 
     size_t index = 0;
-    for (auto it = USER_LIST.begin(); it != USER_LIST.end(); ++it, ++index) {
+    for (auto it = vPlayer.begin(); it != vPlayer.end(); ++it, ++index) {
         switch (index) {
             case 0:
                 it->coordinates.first = 0;
@@ -110,7 +102,7 @@ void InitGrid (Grid & gameGrid, unsigned rows, unsigned columns,
     }
 
 
-    for (Player u : USER_LIST) {
-        gameGrid[u.coordinates.first][u.coordinates.second] = u.token;
+    for (Player v : vPlayer) {
+        gameGrid[v.coordinates.first][v.coordinates.second] = v.token;
     }
 }

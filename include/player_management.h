@@ -8,17 +8,18 @@
 
 #include "type.h"
 
+
 struct Player {
-    vector<vector<string>> inventory;
+    std::vector<std::vector<std::string>> inventory;
     char token ;
-    string color;
-    string name;
+    std::string color;
+    std::string name;
     GridCoordinates coordinates = {100,100};
     bool isAlive = true;
 };
 
-void createPlayers(const unsigned short PLAYERS, vector<Player> &vPlayer);
-void eliminatePlayer(const char& playerToken ,vector<Player>& users);
-char getWinner(vector<Player>& users);
+void createPlayers(const unsigned short PLAYERS, std::vector<Player> &vPlayer);
+void eliminatePlayer(const char& playerToken ,std::vector<Player>& users);
+Player getWinner(std::vector<Player>& users);
 
 #endif //PLAYER_MANAGEMENT_H

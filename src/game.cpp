@@ -3,8 +3,9 @@
 
 #include "../include/game.h"
 #include "../include/settings.h"
-#include "../include/grid_management.h"
 #include "../include/player_management.h"
+#include "../include/terminal_management.h"
+#include "../include/grid_management.h"
 
 #include <map>
 using namespace std;
@@ -65,7 +66,7 @@ void moveToken (Grid & gameGrid, char & movement, Player &currentPlayer, const G
     gameGrid[currentPlayer.coordinates.first][currentPlayer.coordinates.second] = car;
 } // MoveToken ()
 
-int ppal ()
+int initGame ()
 {
 
 
@@ -73,14 +74,10 @@ int ppal ()
     GameSettings settings{};
     unsigned short players;
     vector<Player> vPlayers;
-
-    unsigned roundNumber (0);
+    unsigned roundNumber (1);
     constexpr unsigned maxRoundNumber (500);
     Grid gameGrid;
-
     bool isGameOver (false);
-
-
     const vector<char> vKeyBinds = loadSettings(keyBinds, settings);
 
 
@@ -96,57 +93,85 @@ int ppal ()
         cout << endl << "Nombre de joueurs invalide. Il doit y avoir entre 2 et 4 joueurs." << endl << "Entrez le nombre de joueurs : ";
         cin >> players;
     }
-
+    vPlayers.resize(players);
     createPlayers(players, vPlayers);
 
-    InitGrid(gameGrid, settings.gridRows, settings.gridColumns, vPlayers);
+    initGrid(gameGrid, settings.gridRows, settings.gridColumns, vPlayers, settings);
 
-    DisplayGrid (gameGrid, vPlayers);
+    displayGrid (gameGrid, vPlayers);
 
     while (roundNumber <= maxRoundNumber && !isGameOver ){
-
-
         unsigned short int playersAlive = 0;
 
-        for (Player& v : vPlayers) {
+        for (const Player& v : vPlayers) {
             if (v.isAlive) ++playersAlive;
         }
 
-
         if (playersAlive == 1) {
-            cout << "Game Over!";
             isGameOver = true;
+            continue;
         }
-        cout << playersAlive << " vivants." << endl;
 
         ++settings.currentUserTurn;
         settings.currentUserTurn %= vPlayers.size();
-        if (!vPlayers[settings.currentUserTurn].isAlive) continue;
-
-        ++roundNumber;
 
         string input;
         char inputChar;
-        int j = -1;
-
-        cout << roundNumber  << (roundNumber == 1 ? "er" : "eme") << " tour." << endl << "Joueur "
-<< vPlayers[settings.currentUserTurn].token << ", entrez un déplacement : " << endl;
 
 
+
+        int j = 0;
         while (!isValidKeyBind(input[0],vKeyBinds)) {
-            DisplayGrid (gameGrid, vPlayers);
-            cout << (j > 0 ? "\nInvalide ! " : "\n")
-            << roundNumber  << (roundNumber == 1 ? "er" : "eme") << " tour." << endl << "Joueur "
-<< vPlayers[settings.currentUserTurn].token << ", entrez un déplacement : " << endl;
+            clearScreen();
+            displayGrid (gameGrid, vPlayers);
+            cout
+            << (j > 0 ? "\nInvalide ! " : "\n")
+            << roundNumber  << (roundNumber == 1 ? "er" : "eme")
+            << " tour."
+            << endl
+            << "Joueur "
+            << vPlayers[settings.currentUserTurn].token << ", entrez un déplacement : "
+            << endl;
+
             getline(cin,input);
+
+            if (input.empty()) {
+                continue;
+            }
             ++j;
         }
 
         inputChar = toupper (input[0]);
 
+        if (toupper(input[0]) == keyBinds.keyHelp) {
+            cout << "Touches disponibles. Pour plus d'informations, referez vous a la section [Aide] du menu ou lancez ce programme avec l'option --keybinds." << endl;
+            for (const char &c : vKeyBinds) {
+                cout << c << "\t";
+            }
+            cout << endl;
+            getline(cin,input);
+            continue;
+        }
+        if (toupper(input[0]) == keyBinds.keyInventory) {
+            if (vPlayers[settings.currentUserTurn].inventory.size() <= 0) {
+                cout << "Inventaire vide !" << endl;
+                getline(cin,input);
+                continue;
+            }
+            for (const vector<string> &v: vPlayers[settings.currentUserTurn].inventory ) {
+                for (const string &k: v) {
+                    cout << k << "\t";
+                }
+            }
+        }
+
+        if (!vPlayers[settings.currentUserTurn].isAlive) continue;
+
+
+        ++roundNumber;
+
         moveToken (gameGrid, inputChar, vPlayers[settings.currentUserTurn], keyBinds);
-        clearScreen();
-        DisplayGrid (gameGrid, vPlayers);
+        displayGrid (gameGrid, vPlayers);
 
         for (Player &v : vPlayers) {
             if (v.token == vPlayers[settings.currentUserTurn].token) continue;
@@ -158,14 +183,15 @@ int ppal ()
     }//while (no victory)
 
     if (!isGameOver) {
-        color (COLORS.find("MAGENTA")->second);
+        setColor (COLORS.find("MAGENTA")->second);
         cout << "Aucun vainqueur" << endl;
     } else {
-        color (COLORS.find("GREEN")->second);
-        cout << "Félicitations Joueur "
-             << getWinner(vPlayers)
+        setColor (COLORS.find("GREEN")->second);
+        cout << "Félicitations "
+        << getWinner(vPlayers).name
+        << " (" << getWinner(vPlayers).token << ")"
              << " vous avez gagné :)" << endl;
-        color (COLORS.find("RESET")->second);
+        setColor (COLORS.find("RESET")->second);
     }
 
 

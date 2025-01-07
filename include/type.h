@@ -14,23 +14,21 @@
 #include <vector>
 #include <map>
 
-using namespace std;
-
 /**
  * @brief GridRow : alias to a line of the matrix
  */
-typedef vector <char> GridRow;
+typedef std::vector <char> GridRow;
 
 /**
  * @brief Grid : alias to a game grid type
  * @typedef vector <GridRow> Grid;
  */
-typedef vector <GridRow> Grid;
+typedef std::vector <GridRow> Grid;
 
 /**
  * @brief GridCoordinates : a pair gathering the coordinates in the grid
  */
-typedef pair <unsigned, unsigned> GridCoordinates;
+typedef std::pair <unsigned, unsigned> GridCoordinates;
 
 
 
@@ -39,11 +37,11 @@ typedef pair <unsigned, unsigned> GridCoordinates;
  */
 struct AuthorizedKey {
     /** List of authorized key for the type char in a struct CMyParam*/
-    const vector <string> VParamChar {"KeyUp", "KeyDown", "KeyLeft", "KeyRight", "TokenP1", "TokenP2"};
+    const std::vector <std::string> VParamChar {"KeyUp", "KeyDown", "KeyLeft", "KeyRight", "TokenP1", "TokenP2"};
     /** List of authorized key for the type string in a struct CMyParam*/
-    const vector <string> VParamString {"ColorP1", "ColorP2"};
+    const std::vector <std::string> VParamString {"ColorP1", "ColorP2"};
     /** List of authorized key for the type unsigned in a struct CMyParam*/
-    const vector <string> VParamUnsigned {"NbRow", "NbColumn"};
+    const std::vector <std::string> VParamUnsigned {"NbRow", "NbColumn"};
 };
 
 /**
@@ -55,7 +53,7 @@ const AuthorizedKey AUTHORIZED_KEY;
   * @brief KColor : map between the "human" color and its correspondence for the Unix terminal
   */
 
-const map <string, string> COLORS
+const std::map <std::string, std::string> COLORS
 {
   {"RESET", "0"},
   {"BLACK", "30"},
@@ -74,8 +72,8 @@ const map <string, string> COLORS
 const char EMPTY_CHAR = ' ';
 const char WALL_CHAR = '#';
 
-const vector<string> BONUS_LIST = {"TURN_STEALING", "THROUGH_WALLS", "MOVING_FASTER"};
-const vector<string> CHEAT_LIST = {"HATECPP", "RACISM", "123456789"};
+const std::vector<std::string> BONUS_LIST = {"TURN_STEALING", "THROUGH_WALLS", "MOVING_FASTER"};
+const std::vector<std::string> CHEAT_LIST = {"HATECPP", "RACISM", "123456789"};
 
 /**
  * @brief CMyParamV2 : structure of all settings
@@ -83,25 +81,25 @@ const vector<string> CHEAT_LIST = {"HATECPP", "RACISM", "123456789"};
  */
 
 struct GameKeyBinds {
-    char keyUp;         // Haut
-    char keyDown;       // Bas
-    char keyLeft;       // Gauche
-    char keyRight;      // Droite
-    char keyUpLeft;     // Haut-gauche
-    char keyUpRight;    // Haut-droite
-    char keyDownLeft;   // Bas-gauche
-    char keyDownRight;  // Bas-droite
-    char keyHelp;
-    char keyInventory;
+    char keyUp = 'Z';         // Haut
+    char keyDown = 'X';       // Bas
+    char keyLeft = 'Q';       // Gauche
+    char keyRight = 'D';      // Droite
+    char keyUpLeft = 'A';     // Haut-gauche
+    char keyUpRight = 'E';    // Haut-droite
+    char keyDownLeft = 'W';   // Bas-gauche
+    char keyDownRight = 'C';  // Bas-droite
+    char keyHelp = '/';
+    char keyInventory = 'I';
 };
 
 struct GameSettings {
-    size_t gridColumns;
-    size_t gridRows;
-    unsigned short wallFrequency;
-    unsigned short bonusFrequency;
-    unsigned short currentUserTurn;
-    bool canTeleport;
+    size_t gridColumns = 10;
+    size_t gridRows = 10;
+    double wallFrequency = 0.1;
+    double bonusFrequency = 0.2;
+    unsigned short currentUserTurn = 1;
+    bool canTeleport = false;
 };
 
 

@@ -10,25 +10,8 @@
  * \date 18 décembre 2018
  */
 
-#include <string>
 #include "type.h"
 #include "player_management.h" //nos types
-
-using namespace std;
-
-/**
- * @brief Clear the current terminal
- * @fn void ClearScreen ();
- */
-void clearScreen ();
-
-/**
- * @brief Set the color of the future input in the terminal
- * @param[in] Col : Next color to be used
- * @fn void Color (const string & Col);
- */
-
-void color (const string & COL);
 
 
 /**
@@ -38,7 +21,7 @@ void color (const string & COL);
  * @param USER_LIST
  * @fn void DisplayGrid (const Grid & Mat, const CMyParam & Params, bool ShowLineNumber = true, bool ShowColor = true);
  */
-void DisplayGrid (const Grid & GAME_GRID, const vector<Player> &USER_LIST);
+void displayGrid (const Grid & GAME_GRID, const std::vector<Player> &USER_LIST);
 
 
 /*!
@@ -49,7 +32,7 @@ void DisplayGrid (const Grid & GAME_GRID, const vector<Player> &USER_LIST);
  * @fn void InitGrid (Grid & Mat, const CMyParam & Params, GridCoordinates & CoordPlayer1, GridCoordinates & CoordPlayer2);
  */
 
-void InitGrid (Grid & gameGrid, unsigned rows, unsigned columns,
-               vector<Player> &USER_LIST);
+void initGrid (Grid & gameGrid, unsigned rows, unsigned columns,
+               std::vector<Player> & vPlayer, const GameSettings &SETTINGS);
 
 #endif // GRID_MANAGEMENT_H

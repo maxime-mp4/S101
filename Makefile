@@ -15,6 +15,8 @@ SOURCES = \
     src/grid_management.cpp \
     src/settings.cpp \
     src/player_management.cpp \
+    src/terminal_management.cpp \
+    src/menu.cpp \
     main.cpp
 
 # Générez une liste d'objets à partir des sources et placez-les dans le répertoire OBJDIR

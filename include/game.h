@@ -27,5 +27,6 @@ void moveToken (Grid & gameGrid, char & movement, Player &currentPlayer, const G
  * @return 0 if everything is OK
  * @fn int ppal ();
  */
-int ppal ();
+int initGame ();
+
 #endif // GAME_H

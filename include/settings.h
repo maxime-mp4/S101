@@ -11,10 +11,17 @@
  */
 
 #include "type.h"
+#include <yaml-cpp/yaml.h>
 
-vector<char> loadSettings (GameKeyBinds & keyBinds, GameSettings & settings);
+std::vector<char> loadSettings (GameKeyBinds & keyBinds, GameSettings & settings);
 
-bool isValidKeyBind(char key, vector<char> vKeyBinds);
+bool isValidKeyBind(const char &KEY, const std::vector<char> &V_KEY_BINDS);
+
+bool isValidType(const std::string& KEY, const std::string& INPUT);
+
+void editSettings(const std::string &CATEGORY);
+
+void displaySettings(const YAML::Node &CATEGORY_NODE, const std::string &CATEGORY_NAME);
 
 /**
  * @brief Initialize the set of parameters from scratch
