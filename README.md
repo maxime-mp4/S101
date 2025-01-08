@@ -2,11 +2,7 @@
 
 ## To-do :
 
-- Paramètres changeable depuis le menu
-- Menu de création de joueur
-- Ajout de teleportation, murs a fréquence custom et bonus
-- Inventaire joueur
-
+- Ajout de bonus : ils apparaiteront tous les 5 rounds et il sera un bonus au hasard parmis la liste, il sera ensuite activable pendant 5 rounds, avant de disparaitre de l'utilisateur.
 - Doxygen
 
 ### Liste des bonus à impletementer
@@ -18,6 +14,9 @@
 
 ## Fait
 
+- Ajout de teleportation, murs a fréquence custom
+- Menu de création de joueur
+- Paramètres changeable depuis le menu
 - Menu
 - Paramètres avec fichier .yml
 - Jouer de 2 à 4
@@ -25,6 +24,7 @@
 - Gestion automatique des joueurs
 
 ## Annulé
+- ~~Inventaire joueur~~
 - ~~Fichier de score à lire/écrire, avec le score le plus haut pour chaque joueur~~
 - ~~Import du fichier~~
 - ~~[OPTIONNEL] Ajout de la création de grilles~~

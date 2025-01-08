@@ -13,5 +13,4 @@ settings:
   gridColumns: 10
   gridRows: 5
   wallFrequency: 20
-  bonusFrequency: 10
   canTeleport: true
