@@ -71,7 +71,7 @@ void moveToken (Grid & gameGrid, char & movement, Player &currentPlayer, const G
     }
 
     gameGrid[currentPlayer.coordinates.first][currentPlayer.coordinates.second] = car;
-} // moveToken()
+} // moveToken ()
 
 int initGame ()
 {
@@ -135,7 +135,7 @@ int initGame ()
             cout
             << (j > 0 ? "\nInvalide ! " : "\n")
             << roundNumber  << (roundNumber == 1 ? "er" : "eme")
-            << " tour." << (roundNumber >= 5 && settings.canTeleport ? " (TELEPORTATION ACTIVEE)" : " (TELEPORATION DESACTIVEE)")
+            << " tour." << (roundNumber >= 5 && settings.canTeleport ? " (TELEPORTATION ACTIVEE)" : (settings.canTeleport ? " (TELEPORATION DESACTIVEE)" : ""))
             << endl
             << "Joueur "
             << vPlayers[settings.currentUserTurn].token << ", entrez un déplacement : "
@@ -203,4 +203,4 @@ int initGame ()
 
 
     return 0;
-}
+} // initGame()

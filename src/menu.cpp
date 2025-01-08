@@ -1,19 +1,12 @@
-//
-// Created by maxime on 1/6/25.
-//
-
 #include <iostream>
-#include <ostream>
 #include <yaml-cpp/yaml.h>
+
 #include "../include/game.h"
 #include "../include/menu.h"
 #include "../include/settings.h"
 #include "../include/terminal_management.h"
-#include <fstream>
 
 using namespace std;
-
-
 
 void displayMenu(const string &fallbackMessage) {
 
@@ -73,8 +66,8 @@ void displayMenu(const string &fallbackMessage) {
         default:
             displayMenu("\nChoix invalide !");
     }
+} // displayMenu()
 
-}
 void displaySettingsMenu(const string &fallbackMessage) {
 
     YAML::Node settingsFile = YAML::LoadFile("settings.yml");
@@ -136,6 +129,4 @@ void displaySettingsMenu(const string &fallbackMessage) {
         default:
             displaySettingsMenu("\nChoix invalide !");
     }
-
-}
-
+} // displaySettingsMenu()

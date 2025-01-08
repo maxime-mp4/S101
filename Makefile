@@ -1,9 +1,9 @@
 # Nom de l'exécutable
-EXECUTABLE = myapp
+EXECUTABLE = jeu
 
 # Compilateur et options
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -O2 -g -I$(HOME)/local/include
+CXXFLAGS = -std=c++11 -Wall -Wextra -O2 -I$(HOME)/local/include
 LDFLAGS = -L$(HOME)/local/lib -lyaml-cpp
 
 # Dossier pour les fichiers objets

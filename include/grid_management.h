@@ -22,7 +22,7 @@
  * \param[in] USER_LIST Liste des joueurs avec leurs positions actuelles.
  */
 
-void displayGrid (const Grid & GAME_GRID, const std::vector<Player> &USER_LIST);
+void displayGrid (Grid &GAME_GRID, const std::vector<Player> &USER_LIST);
 
 /*!
  * \brief Initialise la grille de jeu à partir de zéro.

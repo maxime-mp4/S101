@@ -47,7 +47,7 @@ vector<char> loadSettings (GameKeyBinds & keyBinds, GameSettings & settings) {
     };
 
     return vKeyBinds;
-}
+} // loadSettings()
 
 
 bool isValidKeyBind(const char &KEY, const std::vector<char> &V_KEY_BINDS) {
@@ -61,7 +61,7 @@ bool isValidKeyBind(const char &KEY, const std::vector<char> &V_KEY_BINDS) {
     }
 
     return false;
-}
+} // isValidKeyBind()
 
 bool isValidType(const string& KEY, const string& INPUT) {
     if (INPUT.empty()) { return true; }
@@ -98,7 +98,7 @@ bool isValidType(const string& KEY, const string& INPUT) {
         }
     } else { return true; }
     return false;  // Si la clé ne correspond à aucune des cases définies
-}
+} // isValidType()
 
 
 void editSettings(const string &CATEGORY) {
@@ -186,7 +186,7 @@ void editSettings(const string &CATEGORY) {
     ofstream fOut("settings.yml");
     fOut << settingsFile;
     fOut.close();
-}
+} // editSettings()
 
 void displaySettings(const YAML::Node& CATEGORY_NODE, const string &CATEGORY_NAME) {
     cout << "[" << CATEGORY_NAME << "]" << endl;
@@ -195,4 +195,4 @@ void displaySettings(const YAML::Node& CATEGORY_NODE, const string &CATEGORY_NAM
                    << setting.second.as<string>() << endl;
     }
 
-}
+} // displaySettings()
