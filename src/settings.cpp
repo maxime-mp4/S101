@@ -1,12 +1,15 @@
+#include "../include/terminal_management.h"
+#include "../include/settings.h"
+#include "../include/game.h"
+
 #include <string>
 #include <yaml-cpp/yaml.h>
 #include <iostream>
 #include <fstream>
 
-#include "../include/settings.h"
-#include "../include/game.h"
 
 using namespace std;
+using namespace YAML;
 
 vector<char> loadSettings (GameKeyBinds & keyBinds, GameSettings & settings) {
 
@@ -67,11 +70,10 @@ bool isValidType(const string& KEY, const string& INPUT) {
 
         try {
             const size_t VAL = stoi(INPUT);
-            if (VAL) {
+            if (VAL >= 5) {
                 return true;
             }
         } catch (...) {
-            cout << "Erreur : l'entrée pour " << KEY << " doit être un entier positif." << endl;
             return false;
         }
 
@@ -79,13 +81,11 @@ bool isValidType(const string& KEY, const string& INPUT) {
 
         try {
             const size_t VAL = stoi(INPUT);
-            if (VAL > 100) {
-                cout << "Erreur : l'entrée pour " << KEY << " doit être un nombre décimal." << endl;
+            if (VAL >= 70) {
                 return false;
             }
             return true;
         } catch (...) {
-            cout << "Erreur : l'entrée pour " << KEY << " doit être un nombre décimal." << endl;
             return false;
         }
 
@@ -94,7 +94,6 @@ bool isValidType(const string& KEY, const string& INPUT) {
         if (INPUT == "true" || INPUT == "false") {
             return true;
         } else {
-            cout << "Erreur : l'entrée pour " << KEY << " doit être 'true' ou 'false'." << endl;
             return false;
         }
     } else { return true; }
@@ -105,99 +104,88 @@ bool isValidType(const string& KEY, const string& INPUT) {
 void editSettings(const string &CATEGORY) {
     YAML::Node settingsFile = YAML::LoadFile("settings.yml");
     YAML::Node settingsDefaultFile = YAML::LoadFile(".default.yml");
-    string input;
-    char currentManipulatedKey;
 
+    string input;
+    string settingsType;
+    clearScreen();
     if (CATEGORY == "settings") {
 
-        for (const auto& SETTING : settingsFile[CATEGORY]) {
-            cout << "Modification de : " << SETTING.first.as<string>() << endl
-            << "Valeur actuelle : " << SETTING.second  << endl
-            << "Valeur par défaut : " << settingsDefaultFile[CATEGORY][SETTING.first.as<string>()] << endl
-            << "Laissez vide si vous souhaitez réinitialiser le paramètre." << endl << "-> ";
-            getline(cin, input);
-        }
+        cout << "Modifier un paramètre : entrez le paramètre que vous souhaitez changer."
+        << endl
+        << "Pour le trouver, rendez-vous dans [Réglages] > [Afficher les réglages]. (Paramètre sensible à la casse)" << endl << "-> ";
+        getline(cin,input);
+
+             if (!input.empty() && settingsFile[CATEGORY][input]) {
+
+                 clearScreen();
+                 cout << "Entrez le paramètre pour " << input << endl;
+                 if (input == "gridColumns" || input == "gridRows" || input == "wallFrequency" || input == "bonusFrequency") {
+                     cout << "Attention: entrée sensible à la casse." << endl << "Type attendu: Nombre positif" << (input == "gridColumns" || input == "gridRows"  ? " supérieur ou égal a 5" : " inférieur ou égal à 70") << endl << (input == "wallFrequency" ? "Attention: plus le nombre s'approche de 100, plus il y a de chance que le jeu devienne impossible !\nNous vous recommandons de mettre une valeur entre 20 et 40\n" : "") << "-> ";
+                 } else {
+                     cout << "Attention: entrée sensible à la casse." << endl << "Type attendu: booleen (true/false)" << endl << "-> ";
+                 }
+                 getline(cin,settingsType);
+                 if (!isValidType(input, settingsType)) {
+                     cout << "Paramètre invalide. Modification annulée." << endl << "Appuyez sur entrer pour fermer...";
+                     getline(cin,input);
+                 } else {
+                     settingsFile[CATEGORY][input] = settingsType;
+                 }
+             } else {
+                 cout << (input.empty() ? "Annulation." : "Paramètre inexistant. Réessayez.") << endl
+                 << "Appuyez sur entrer pour fermer... ";
+                 getline(cin,input);
+             }
 
     } else if (CATEGORY == "keyBinds") {
+        GameSettings globalSettings = GameSettings();
+        GameKeyBinds globalKeyBinds = GameKeyBinds();
+        vector<char> vKeyBinds = loadSettings(globalKeyBinds, globalSettings);
 
-        for (const auto& SETTING : settingsFile[CATEGORY]) {
-            cout << "Modification de : " << SETTING.first.as<string>() << endl
-            << "Valeur actuelle : " << SETTING.second << endl
-            << "Valeur par défaut : " << settingsDefaultFile[CATEGORY][SETTING.first.as<string>()] << endl
-            << "Laissez vide si vous souhaitez réinitialiser le paramètre." << endl << "-> ";
-            getline(cin, input);
+
+        cout << "Modifier un paramètre : entrez le paramètre que vous souhaitez changer."
+        << endl
+        << "Pour le trouver, rendez-vous dans [Réglages] > [Afficher les réglages]. (Paramètre sensible à la casse)" << endl << "-> ";
+        getline(cin,input);
+
+        if (!input.empty() && settingsFile[CATEGORY][input]) {
+            bool isKeyUsed = false;
+            cout << "Entrez le paramètre pour " << input << endl
+            << "Attention: entrée sensible à la casse." << endl << "Type attendu: caractère (la première entrée sera considérée comme)" << endl << "-> ";
+
+            getline(cin,settingsType);
+
+            clearScreen();
+            for (const char& vKey : vKeyBinds) {
+                if (vKey == toupper(settingsType[0])) {
+                    cout << "La touche " << vKey << " est déjà utilisée (voir paramètres). Paramètre inchangé." << endl
+                    << "Appuyez sur entrer pour fermer... ";
+                    isKeyUsed = true;
+                    getline(cin,input);
+                    break;
+                }
+            }
+
+            char outputKey = toupper(settingsType[0]);
+
+            if (!isKeyUsed) {
+                settingsFile[CATEGORY][input] = outputKey;
+            }
+
+        } else {
+            cout << (input.empty() ? "Annulation." : "Paramètre inexistant. Réessayez.") << endl
+            << "Appuyez sur entrer pour fermer... ";
+            getline(cin,input);
         }
+
 
     } else {
         cerr << "Une erreur est surevenue lors de la modification des paramètes. Si vous désirez les modifier tout de même, vous pouvez manuellement en modifiant le fichier .settings.yml." << endl;
     }
-    /*
-    map<char, string> usedKeys; // Map des touches utilisées avec le nom de la propriété associée
 
-    // Initialisation des touches déjà utilisées
-    for (auto setting : settingsFile[CATEGORY]) {
-        string currentKey = setting.second.as<string>();
-        if (currentKey.length() == 1) {
-            usedKeys[toupper(currentKey[0])] = setting.first.as<string>();
-        }
-    }
-
-    for (auto setting : settingsFile[CATEGORY]) {
-        cout << setting.first.as<string>() << endl
-             << "(actuel[écrivez]:" << setting.second
-             << ",defaut[entrée vide]:" << settingsDefaultFile[CATEGORY][setting.first.as<string>()] << ") : ";
-
-        getline(cin, input);
-
-        if (CATEGORY == "keyBinds") {
-            if (input.empty()) {
-                // Utilise la valeur par défaut si aucune entrée n'est fournie
-                input = settingsDefaultFile[CATEGORY][setting.first.as<string>()].as<string>();
-            }
-
-            if (input.length() != 1) {
-                cout << "Erreur : la touche doit être un seul caractère." << endl;
-                continue;
-            }
-
-            char newKey = toupper(input[0]);
-
-            // Vérifie si la touche est déjà utilisée
-            if (usedKeys.count(newKey)) {
-                string conflictingSetting = usedKeys[newKey];
-                cout << "La touche '" << newKey << "' est déjà assignée à '" << conflictingSetting << "'." << endl;
-                cout << "Permutation des touches entre '" << setting.first.as<string>() << "' et '" << conflictingSetting << "'." << endl;
-
-                // Permutation des touches
-                string temp = settingsFile[CATEGORY][conflictingSetting].as<string>();
-                settingsFile[CATEGORY][conflictingSetting] = setting.second.as<string>();
-                setting.second = temp;
-            } else {
-                // Mise à jour de la touche si elle n'est pas déjà utilisée
-                usedKeys[newKey] = setting.first.as<string>();
-                setting.second = string(1, newKey);
-            }
-        } else {
-            // Vérification des autres types avec isValidType
-            if (isValidType(setting.first.as<string>(), input)) {
-                if (!input.empty()) {
-                    setting.second = input;
-                } else {
-                    setting.second = settingsDefaultFile[CATEGORY][setting.first.as<string>()];
-                }
-            } else {
-                cout << "Type invalide pour " << setting.first.as<string>() << ", modification ignorée." << endl << endl;
-            }
-        }
-    }
-
-    cout << "Appuyez sur entrer pour valider..." << endl;
-    getline(cin, input);
-
-    ofstream fout("settings.yml");
-    fout << settingsFile;
-    fout.close();
-    */
+    ofstream fOut("settings.yml");
+    fOut << settingsFile;
+    fOut.close();
 }
 
 void displaySettings(const YAML::Node& CATEGORY_NODE, const string &CATEGORY_NAME) {

@@ -10,6 +10,8 @@
 #include <iostream>
 #include <algorithm>
 
+using namespace std;
+
 void createPlayers(const unsigned short PLAYERS, vector<Player> &vPlayer) {
   clearScreen();
 	cout << "Players: " << PLAYERS << endl;
@@ -18,7 +20,6 @@ void createPlayers(const unsigned short PLAYERS, vector<Player> &vPlayer) {
 
     // Boucle pour chaque joueur
     for (size_t i = 0; i < PLAYERS; ++i) {
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Joueur " << (i+1) << endl;
         Player user;
 
@@ -29,7 +30,7 @@ void createPlayers(const unsigned short PLAYERS, vector<Player> &vPlayer) {
 
         // Demander le token du joueur
         cout << "-> Entrez votre token : ";
-        cin >> input;  // Utilisation de getline pour récupérer le token
+        getline(cin,input);  // Utilisation de getline pour récupérer le token
 
         // Vérification si le token est déjà utilisé
 if (i > 0) {
@@ -38,7 +39,7 @@ if (i > 0) {
         return toupper(input[0]) == u.token;
     }) != vPlayer.end()) {
         cout << "Token déjà utilisé !" << endl << "-> Entrez votre token : ";
-        cin >> input;
+        getline(cin, input);
     }
 }
 
@@ -59,7 +60,7 @@ if (i > 0) {
             cout << (j > 0 ? "\nInvalide ! " : "\n") << "-> Entrez votre couleur : ";
 
             // Demander la couleur
-            cin >> user.color;
+            getline(cin, user.color);
             transform(user.color.begin(), user.color.end(), user.color.begin(), ::toupper);  // Convertir en majuscules
             ++j;  // Incrémenter le compteur de tentatives
         }

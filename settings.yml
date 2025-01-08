@@ -1,17 +1,17 @@
 keyBinds:
-  keyUp: I
-  keyDown: A
+  keyUp: Z
+  keyDown: X
   keyLeft: Q
   keyRight: D
-  keyUpLeft: X
+  keyUpLeft: A
   keyUpRight: E
   keyDownLeft: W
   keyDownRight: C
   keyHelp: /
-  keyInventory: Z
+  keyInventory: I
 settings:
-  gridColumns: 5
+  gridColumns: 10
   gridRows: 5
-  wallFrequency: 30
+  wallFrequency: 20
   bonusFrequency: 10
-  canTeleport: false
+  canTeleport: true

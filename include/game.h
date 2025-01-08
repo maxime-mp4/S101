@@ -3,29 +3,42 @@
 
 /*!
  * \file game.h
- * \brief Set of usefull functions for the game
- * \author Alain Casali
- * \author Marc Laporte
+ * \brief Ensemble de fonctions utiles pour le jeu.
+ * \author maxime-mp4
  * \version 1.0
- * \date 18 décembre 2018
+ * \date 8 janvier 2025
  */
 
 #include "type.h"
 #include "player_management.h"
 
 /*!
- * \brief Move the current token according to the character in the 2nd parameter
- * \param[in, out] Mat the matrix before and after the move
- * \param[in] movement the key pressed by the user
- * \param[in, out] Pos the player's position before and after the move
+ * \brief Déplace le jeton du joueur sur la grille selon la touche pressée.
+ *
+ * Cette fonction met à jour la position du joueur sur la grille en fonction de la touche
+ * pressée. Elle gère également la téléportation si cette fonctionnalité est activée
+ * dans les réglages.
+ *
+ * \param[in, out] gameGrid La grille du jeu avant et après le déplacement.
+ * \param[in] movement La touche pressée par l'utilisateur pour indiquer la direction.
+ * \param[in, out] currentPlayer Le joueur dont le jeton est déplacé.
+ * \param[in] KEY_BINDS Les raccourcis clavier pour les mouvements du joueur.
+ * \param[in] SETTINGS Les réglages actuels du jeu, y compris les règles de téléportation.
+ * \param[in] ROUND_NUMBER Le numéro actuel du tour, utilisé pour limiter la téléportation
+ * au début du jeu.
  */
 
-void moveToken (Grid & gameGrid, char & movement, Player &currentPlayer, const GameKeyBinds &KEY_BINDS);
+void moveToken (Grid & gameGrid, char & movement, Player & currentPlayer,
+                const GameKeyBinds & KEY_BINDS, const GameSettings & SETTINGS,
+                const unsigned & ROUND_NUMBER);
 
-/**
- * @brief new main
- * @return 0 if everything is OK
- * @fn int ppal ();
+/*!
+ * \brief Initialise le jeu et lance la boucle principale.
+ *
+ * Cette fonction configure le jeu, initialise les composants nécessaires et
+ * démarre la séquence de jeu principale.
+ *
+ * \return 0 si le jeu s'est initialisé et exécuté correctement, ou un code d'erreur sinon.
  */
 int initGame ();
 

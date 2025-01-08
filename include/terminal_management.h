@@ -7,25 +7,40 @@
 
 #include <iostream>
 
-
-void setRawMode(bool enable);
-
-/**
- * @brief Clear the current terminal
- * @fn void ClearScreen ();
+/** @file terminal_management.h
+ *  @brief Functions for managing terminal input, output, and formatting.
+ *  @author maxime-mp4
  */
 
-void clearScreen ();
 
 /**
- * @brief Set the color of the future input in the terminal
- * @param COL
- * @fn void Color (const string & Col);
+ * @brief Clear the current terminal screen.
+ *
+ * This function clears all content currently displayed in the terminal.
  */
+void clearScreen();
 
-void setColor (const std::string &COL);
+/**
+ * @brief Set the color of future input in the terminal.
+ *
+ * This function allows you to set a color for the text input in the terminal.
+ * The color is applied to all subsequent terminal outputs.
+ *
+ * @param COL The color to apply, given as a string (e.g., "red", "blue").
+ */
+void setColor(const std::string &COL);
 
-std::string createHyperLink (const std::string &LINK, const std::string &TEXT);
-
+/**
+ * @brief Create an HTML hyperlink.
+ *
+ * This function creates a string representing an HTML hyperlink, which can be used in a terminal
+ * that supports HTML rendering, or embedded into HTML files.
+ *
+ * @param LINK The URL to link to.
+ * @param TEXT The text to display for the hyperlink.
+ *
+ * @return A string containing the HTML representation of the hyperlink.
+ */
+std::string createHyperLink(const std::string &LINK, const std::string &TEXT);
 
 #endif //TERMINAL_MANAGEMENT_H

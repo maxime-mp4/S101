@@ -11,90 +11,98 @@
 using namespace std;
 
 
-void moveToken (Grid & gameGrid, char & movement, Player &currentPlayer, const GameKeyBinds &KEY_BINDS)
+void moveToken (Grid & gameGrid, char & movement, Player &currentPlayer, const GameKeyBinds &KEY_BINDS, const GameSettings &SETTINGS, const
+                unsigned &ROUND_NUMBER)
 {
-
     char car = gameGrid[currentPlayer.coordinates.first][currentPlayer.coordinates.second];
     gameGrid[currentPlayer.coordinates.first][currentPlayer.coordinates.second] = EMPTY_CHAR;
 
-    // Calcul des nouvelles positions potentielles
-    size_t new_row = currentPlayer.coordinates.first;
-    size_t new_col = currentPlayer.coordinates.second;
+    size_t newRow = currentPlayer.coordinates.first;
+    size_t newCol = currentPlayer.coordinates.second;
 
-    if (movement == KEY_BINDS.keyUpLeft) { // Haut-gauche
-        new_row--;
-        new_col--;
+    if (movement == KEY_BINDS.keyUpLeft) {
+        newRow--;
+        newCol--;
     }
-    else if (movement == KEY_BINDS.keyUp) { // Haut
-        new_row--;
+    else if (movement == KEY_BINDS.keyUp) {
+        newRow--;
     }
-    else if (movement == KEY_BINDS.keyUpRight) { // Haut-droite
-        new_row--;
-        new_col++;
+    else if (movement == KEY_BINDS.keyUpRight) {
+        newRow--;
+        newCol++;
     }
-    else if (movement == KEY_BINDS.keyLeft) { // Gauche
-        new_col--;
+    else if (movement == KEY_BINDS.keyLeft) {
+        newCol--;
     }
-    else if (movement == KEY_BINDS.keyRight) { // Droite
-        new_col++;
+    else if (movement == KEY_BINDS.keyRight) {
+        newCol++;
     }
-    else if (movement == KEY_BINDS.keyDownLeft) { // Bas-gauche
-        new_row++;
-        new_col--;
+    else if (movement == KEY_BINDS.keyDownLeft) {
+        newRow++;
+        newCol--;
     }
-    else if (movement == KEY_BINDS.keyDown) { // Bas
-        new_row++;
+    else if (movement == KEY_BINDS.keyDown) {
+        newRow++;
     }
-    else if (movement == KEY_BINDS.keyDownRight) { // Bas-droite
-        new_row++;
-        new_col++;
+    else if (movement == KEY_BINDS.keyDownRight) {
+        newRow++;
+        newCol++;
     }
 
+    if (SETTINGS.canTeleport && ROUND_NUMBER >= 5) {
+        newRow = (newRow + gameGrid.size()) % gameGrid.size();
+        newCol = (newCol + gameGrid[0].size()) % gameGrid[0].size();
+        /*
+         * Point explication : pourquoi avoir fait ça ?
+         * On utilise ici en premier lieux l'addition pour avoir constamment un résultat valide, (dans le cas ou on se déplace vers un index négatif)
+         * Ensuite, on ramène au modulo si la taille de la grille est dépassée par newRow/newCol. (soit, 0)
+         * C'était un peu dur à faire mais Internet est là pour nous sauver !
+         */
+    }
 
-    // Vérifie si les nouvelles coordonnées sont valides
-    if (new_row < gameGrid.size() &&
-        new_col < gameGrid[0].size())
+    if (newRow < gameGrid.size() &&
+        newCol < gameGrid[0].size())
     {
-        if (gameGrid[new_row][new_col] != WALL_CHAR)
-            {
-            currentPlayer.coordinates.first = new_row;
-            currentPlayer.coordinates.second = new_col;
+        if (gameGrid[newRow][newCol] != WALL_CHAR)
+        {
+            currentPlayer.coordinates.first = newRow;
+            currentPlayer.coordinates.second = newCol;
         }
     }
 
-    // Replace le caractère à la nouvelle position
     gameGrid[currentPlayer.coordinates.first][currentPlayer.coordinates.second] = car;
-} // MoveToken ()
+} // moveToken()
 
 int initGame ()
 {
-
-
     GameKeyBinds keyBinds{};
     GameSettings settings{};
-    unsigned short players;
+    string playersSize;
+    size_t i = 0;
     vector<Player> vPlayers;
     unsigned roundNumber (1);
+    unsigned short playerCount = 0;
     constexpr unsigned maxRoundNumber (500);
     Grid gameGrid;
     bool isGameOver (false);
     const vector<char> vKeyBinds = loadSettings(keyBinds, settings);
 
 
-    clearScreen();
 
-
-    cout << "Bienvenue" << endl << "Entrez le nombre de joueurs : ";
-    cin >> players;
-
-    while (players < 2 || players > 4 || cin.fail()) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << endl << "Nombre de joueurs invalide. Il doit y avoir entre 2 et 4 joueurs." << endl << "Entrez le nombre de joueurs : ";
-        cin >> players;
+    while (playerCount == 0 || playerCount < 2 || playerCount > 4) {
+        clearScreen();
+        cout << (i > 0 ? "Nombre de joueurs invalide. Il doit y avoir entre 2 et 4 joueurs.\n" : "") << "Entrez le nombre de joueurs : ";
+        getline(cin, playersSize);
+        try {
+            playerCount = stoi(playersSize);
+        } catch (...) {
+            cout << "Erreur : il faut entrer un nombre valide." << endl;
+        }
+        ++i;
     }
-    vPlayers.resize(players);
-    createPlayers(players, vPlayers);
+
+    vPlayers.resize(playerCount);
+    createPlayers(playerCount, vPlayers);
 
     initGrid(gameGrid, settings.gridRows, settings.gridColumns, vPlayers, settings);
 
@@ -114,7 +122,7 @@ int initGame ()
 
         ++settings.currentUserTurn;
         settings.currentUserTurn %= vPlayers.size();
-
+        if (!vPlayers[settings.currentUserTurn].isAlive) continue;
         string input;
         char inputChar;
 
@@ -127,7 +135,7 @@ int initGame ()
             cout
             << (j > 0 ? "\nInvalide ! " : "\n")
             << roundNumber  << (roundNumber == 1 ? "er" : "eme")
-            << " tour."
+            << " tour." << (roundNumber >= 5 && settings.canTeleport ? " (TELEPORTATION ACTIVEE)" : " (TELEPORATION DESACTIVEE)")
             << endl
             << "Joueur "
             << vPlayers[settings.currentUserTurn].token << ", entrez un déplacement : "
@@ -153,7 +161,7 @@ int initGame ()
             continue;
         }
         if (toupper(input[0]) == keyBinds.keyInventory) {
-            if (vPlayers[settings.currentUserTurn].inventory.size() <= 0) {
+            if (vPlayers.empty()) {
                 cout << "Inventaire vide !" << endl;
                 getline(cin,input);
                 continue;
@@ -165,13 +173,11 @@ int initGame ()
             }
         }
 
-        if (!vPlayers[settings.currentUserTurn].isAlive) continue;
 
 
-        ++roundNumber;
-
-        moveToken (gameGrid, inputChar, vPlayers[settings.currentUserTurn], keyBinds);
+        moveToken (gameGrid, inputChar, vPlayers[settings.currentUserTurn], keyBinds, settings, roundNumber);
         displayGrid (gameGrid, vPlayers);
+        ++roundNumber;
 
         for (Player &v : vPlayers) {
             if (v.token == vPlayers[settings.currentUserTurn].token) continue;
@@ -180,8 +186,9 @@ int initGame ()
             }
         }
 
-    }//while (no victory)
+    }
 
+    clearScreen();
     if (!isGameOver) {
         setColor (COLORS.find("MAGENTA")->second);
         cout << "Aucun vainqueur" << endl;
@@ -196,4 +203,4 @@ int initGame ()
 
 
     return 0;
-} //ppal ()
+}

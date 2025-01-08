@@ -114,14 +114,14 @@ void displaySettingsMenu(const string &fallbackMessage) {
 
         break;
         case '2':
-
+            clearScreen();
             editSettings("settings");
             displaySettingsMenu();
 
         break;
 
         case '3':
-
+            clearScreen();
             editSettings("keyBinds");
             displaySettingsMenu();
 
