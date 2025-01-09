@@ -1,0 +1,10 @@
+<map id="initGame" name="initGame">
+<area shape="rect" id="Node000001" title=" " alt="" coords="338,29,411,56"/>
+<area shape="rect" id="Node000002" href="$menu_8cpp.html#a870985f21a374a3a220e3ba5e8e2f8f3" title=" " alt="" coords="196,29,290,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="322,45,291,45,291,40,322,40"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="264,16,257,10,243,8,230,10,223,14,221,20,224,28,219,30,215,21,218,11,228,5,243,3,259,5,268,12"/>
+<area shape="rect" id="Node000003" href="$menu_8cpp.html#a723f24eafae12b1c10b4dfd0ecdd9e1e" title=" " alt="" coords="5,29,148,56"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="180,54,148,54,148,49,180,49"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="164,31,195,32,195,37,163,36"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="104,16,95,10,76,8,59,10,50,15,48,20,52,28,48,30,43,21,46,11,58,5,77,3,97,5,107,12"/>
+</map>

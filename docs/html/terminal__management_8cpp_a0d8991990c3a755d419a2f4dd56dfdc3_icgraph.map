@@ -1,0 +1,15 @@
+<map id="setColor" name="setColor">
+<area shape="rect" id="Node000001" title=" " alt="" coords="594,31,664,57"/>
+<area shape="rect" id="Node000002" href="$grid__management_8cpp.html#a25ccf82d490f23709b94c2b3f35d59a1" title=" " alt="" coords="459,5,546,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="577,36,545,30,547,25,579,31"/>
+<area shape="rect" id="Node000003" href="$game_8cpp.html#af914d9c0c56eba0cd037f32d5af60cf1" title=" " alt="" coords="338,31,411,57"/>
+<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="578,47,412,47,412,41,578,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="445,33,412,39,411,34,443,28"/>
+<area shape="rect" id="Node000004" href="$menu_8cpp.html#a870985f21a374a3a220e3ba5e8e2f8f3" title=" " alt="" coords="196,31,290,57"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="322,47,291,47,291,41,322,41"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="264,18,257,12,243,9,230,11,223,16,221,22,224,29,219,31,215,22,218,13,228,6,243,4,259,7,268,13"/>
+<area shape="rect" id="Node000005" href="$menu_8cpp.html#a723f24eafae12b1c10b4dfd0ecdd9e1e" title=" " alt="" coords="5,31,148,57"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="180,55,148,56,148,50,180,50"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="164,32,195,33,195,38,163,38"/>
+<area shape="poly" id="edge7_Node000005_Node000005" title=" " alt="" coords="104,18,95,12,76,9,59,11,50,16,48,21,52,29,48,32,43,22,46,12,58,6,77,4,97,7,107,13"/>
+</map>

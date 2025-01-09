@@ -1,0 +1,111 @@
+\doxysection{src/settings.cpp File Reference}
+\hypertarget{settings_8cpp}{}\label{settings_8cpp}\index{src/settings.cpp@{src/settings.cpp}}
+{\ttfamily \#include "{}../include/terminal\+\_\+management.\+h"{}}\newline
+{\ttfamily \#include "{}../include/settings.\+h"{}}\newline
+{\ttfamily \#include "{}../include/game.\+h"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$yaml-\/cpp/yaml.\+h$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+Include dependency graph for settings.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{settings_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ char $>$ \mbox{\hyperlink{settings_8cpp_ab4d6bd14e0af40343a821a7915ce01dc}{load\+Settings}} (Game\+Key\+Binds \&key\+Binds, Game\+Settings \&settings)
+\item 
+bool \mbox{\hyperlink{settings_8cpp_a178b18c5818c0e311a5522673e7cf935}{is\+Valid\+Key\+Bind}} (const char \&KEY, const std\+::vector$<$ char $>$ \&V\+\_\+\+KEY\+\_\+\+BINDS)
+\item 
+bool \mbox{\hyperlink{settings_8cpp_af5b2125ee8f40d03274c2abc95d9e639}{is\+Valid\+Type}} (const string \&KEY, const string \&INPUT)
+\item 
+void \mbox{\hyperlink{settings_8cpp_aa2a04f856cbb617009b78d274911d315}{edit\+Settings}} (const string \&CATEGORY)
+\item 
+void \mbox{\hyperlink{settings_8cpp_a6e48914b15f73bb296c46905e4386f02}{display\+Settings}} (const YAML\+::\+Node \&CATEGORY\+\_\+\+NODE, const string \&CATEGORY\+\_\+\+NAME)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{settings_8cpp_a6e48914b15f73bb296c46905e4386f02}\index{settings.cpp@{settings.cpp}!displaySettings@{displaySettings}}
+\index{displaySettings@{displaySettings}!settings.cpp@{settings.cpp}}
+\doxysubsubsection{\texorpdfstring{displaySettings()}{displaySettings()}}
+{\footnotesize\ttfamily \label{settings_8cpp_a6e48914b15f73bb296c46905e4386f02} 
+void display\+Settings (\begin{DoxyParamCaption}\item[{const YAML\+::\+Node \&}]{CATEGORY\+\_\+\+NODE}{, }\item[{const string \&}]{CATEGORY\+\_\+\+NAME}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{settings_8cpp_a6e48914b15f73bb296c46905e4386f02_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{settings_8cpp_aa2a04f856cbb617009b78d274911d315}\index{settings.cpp@{settings.cpp}!editSettings@{editSettings}}
+\index{editSettings@{editSettings}!settings.cpp@{settings.cpp}}
+\doxysubsubsection{\texorpdfstring{editSettings()}{editSettings()}}
+{\footnotesize\ttfamily \label{settings_8cpp_aa2a04f856cbb617009b78d274911d315} 
+void edit\+Settings (\begin{DoxyParamCaption}\item[{const string \&}]{CATEGORY}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{settings_8cpp_aa2a04f856cbb617009b78d274911d315_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{settings_8cpp_aa2a04f856cbb617009b78d274911d315_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{settings_8cpp_a178b18c5818c0e311a5522673e7cf935}\index{settings.cpp@{settings.cpp}!isValidKeyBind@{isValidKeyBind}}
+\index{isValidKeyBind@{isValidKeyBind}!settings.cpp@{settings.cpp}}
+\doxysubsubsection{\texorpdfstring{isValidKeyBind()}{isValidKeyBind()}}
+{\footnotesize\ttfamily \label{settings_8cpp_a178b18c5818c0e311a5522673e7cf935} 
+bool is\+Valid\+Key\+Bind (\begin{DoxyParamCaption}\item[{const char \&}]{KEY}{, }\item[{const std\+::vector$<$ char $>$ \&}]{V\+\_\+\+KEY\+\_\+\+BINDS}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{settings_8cpp_a178b18c5818c0e311a5522673e7cf935_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{settings_8cpp_af5b2125ee8f40d03274c2abc95d9e639}\index{settings.cpp@{settings.cpp}!isValidType@{isValidType}}
+\index{isValidType@{isValidType}!settings.cpp@{settings.cpp}}
+\doxysubsubsection{\texorpdfstring{isValidType()}{isValidType()}}
+{\footnotesize\ttfamily \label{settings_8cpp_af5b2125ee8f40d03274c2abc95d9e639} 
+bool is\+Valid\+Type (\begin{DoxyParamCaption}\item[{const string \&}]{KEY}{, }\item[{const string \&}]{INPUT}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{settings_8cpp_af5b2125ee8f40d03274c2abc95d9e639_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{settings_8cpp_ab4d6bd14e0af40343a821a7915ce01dc}\index{settings.cpp@{settings.cpp}!loadSettings@{loadSettings}}
+\index{loadSettings@{loadSettings}!settings.cpp@{settings.cpp}}
+\doxysubsubsection{\texorpdfstring{loadSettings()}{loadSettings()}}
+{\footnotesize\ttfamily \label{settings_8cpp_ab4d6bd14e0af40343a821a7915ce01dc} 
+vector$<$ char $>$ load\+Settings (\begin{DoxyParamCaption}\item[{Game\+Key\+Binds \&}]{key\+Binds}{, }\item[{Game\+Settings \&}]{settings}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{settings_8cpp_ab4d6bd14e0af40343a821a7915ce01dc_icgraph}
+\end{center}
+\end{figure}

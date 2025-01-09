@@ -10,6 +10,7 @@
 #include <termios.h>
 #include <unistd.h>
 
+#include "include/terminal_management.h"
 #include "include/menu.h"
 
 using namespace std;
@@ -21,6 +22,8 @@ using namespace std;
 int main()
 {
     displayMenu();
+
+    restoreDefaultMode();
     return 0;
     //setRawMode(false, oldt);
 } //main ()

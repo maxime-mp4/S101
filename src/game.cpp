@@ -87,6 +87,8 @@ int initGame ()
     bool isGameOver (false);
     const vector<char> vKeyBinds = loadSettings(keyBinds, settings);
 
+    restoreDefaultMode();
+
 
 
     while (playerCount == 0 || playerCount < 2 || playerCount > 4) {
@@ -130,6 +132,7 @@ int initGame ()
 
         int j = 0;
         while (!isValidKeyBind(input[0],vKeyBinds)) {
+            setNonCanonicalMode();
             clearScreen();
             displayGrid (gameGrid, vPlayers);
             cout

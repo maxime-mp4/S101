@@ -12,6 +12,21 @@
  *  @author maxime-mp4
  */
 
+/**
+ * @brief Set the terminal to non-canonical mode.
+ *
+ * This function configures the terminal to operate in non-canonical mode,
+ * allowing real-time input processing without waiting for a newline character.
+ */
+void setNonCanonicalMode();
+
+/**
+ * @brief Restore the terminal to its default mode.
+ *
+ * This function resets the terminal settings to their default values,
+ * typically used to undo changes made by setNonCanonicalMode().
+ */
+void restoreDefaultMode();
 
 /**
  * @brief Clear the current terminal screen.

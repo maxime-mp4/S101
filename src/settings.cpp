@@ -108,6 +108,7 @@ void editSettings(const string &CATEGORY) {
     string input;
     string settingsType;
     clearScreen();
+    restoreDefaultMode();
     if (CATEGORY == "settings") {
 
         cout << "Modifier un paramètre : entrez le paramètre que vous souhaitez changer."

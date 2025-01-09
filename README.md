@@ -2,7 +2,7 @@
 
 Note: ce fichier est extrait du [dépôt GitHub](https://github.com/maxime-mp4/S101), et a été adapté pour le rendu du travail.
 
-## 📖  Description
+## Description
 
 Ce projet a été réalisé dans le cadre de la ressource **R101** à l'IUT d'Aix-Marseille.
 Le but était d'implémenter un jeu type [Pac-Man](https://fr.wikipedia.org/wiki/Pac-Man) programmé en C++, en répondant à certains besoins, qui seront détaillés plus tard.
@@ -10,7 +10,7 @@ Le but était d'implémenter un jeu type [Pac-Man](https://fr.wikipedia.org/wiki
 Le jeu permet à plusieurs joueurs d'interagir avec une grille de jeu, de pouvoir se déplacer, avec une interface simple et fluide, et permet aussi la modification des paramètres d'une manière intuitive.
 On expliquera ici les défis qu'était de faire ce jeu, ainsi que les étapes d'installation.
 
-## 🚀 Fonctionnalités principales
+## Fonctionnalités principales
 
 - **Grille de jeu** : Le jeu se déroule sur une grille de taille configurable, où des murs peuvent être placés aléatoirement, et des joueurs placés au préalable.
 - **Gestion des joueurs** : Chaque joueur choisit un nom, un jeton (une lettre) et une couleur pour le rendre unique et identifiable.
@@ -18,7 +18,7 @@ On expliquera ici les défis qu'était de faire ce jeu, ainsi que les étapes d'
 - **Paramétrable** : Les joueurs peuvent, avant de lancer une partie, modifier les touches pour qu'elles puissent être convenable, ainsi que des paramètres essentiels (taille de grille, téléportation, fréquence des murs...)
 - **Tour par tour** : Les joueurs prennent leur tour pour effectuer des actions, et le jeu gère automatiquement le passage d'un joueur à l'autre.
 
-## 🛠️  Technologies utilisées
+##  Technologies utilisées
 
 - **Langage de programmation** : C++.
 - **Bibliothèques** : bibliothèques standard (iostream, vector...) ainsi que [yaml-cpp](https://github.com/jbeder/yaml-cpp).
@@ -108,6 +108,8 @@ Une fois le programme lancé, vous arriverez sur le menu principal. Dirigez-vous
 
 ```
 .
+├── docs/                               # Répértoire contenant la documentation
+├── build/                              # Généré après la compilation, contenant tous les fichiers objets
 ├── include/
     ├── game.h                          # Fichier d'en-tête du jeu
     ├── grid_management.h               # Fichier d'en-tête de la gestion de la grille 
@@ -124,14 +126,40 @@ Une fois le programme lancé, vous arriverez sur le menu principal. Dirigez-vous
     ├── settings.cpp                    # Fichier source des paramètres
     └── terminal_management.cpp         # Fichier source de la gestion du terminal 
 ├── README.md                           # Documentation
+├── Makefile                            # Fichier permettant la compilation
+├── settings.yml                        # Paramètres utilisateur modifiable depuis le jeu
+├── .default.yml                        # Paramètres par défaut en cas de fichier utilisateur non valide [NE PAS MODIFIER]
+├── Doxyfile                            # Fichier de génération de la documentation
 └── main.cpp                            # Point d'entrée du programme
-
 ```
 
-## To-do :
+## Documentation
 
-- Ajout de bonus : ils apparaiteront tous les 5 rounds et il sera un bonus au hasard parmis la liste, il sera ensuite activable pendant 5 rounds, avant de disparaitre de l'utilisateur.
-- Doxygen
+Le projet est fourni avec une documentation Doxygen. Même si celle-ci est générée par défaut, les étapes suivantes indiqueront comment la mettre en place
+
+### Pré-requis
+
+- **Doxygen** : Outil de création de documentation (avec graphviz pour les graphes des fonctions)
+    - Installation : `sudo pacman -S doxygen graphviz`
+
+### Configuration
+
+La configuration de la documentation se fait avec une simple commande :
+```bash
+doxygen Doxyfile
+```
+La documentation se générera automatiquement dans le dossier docs, et vous pourrez ensuite ouvrir le fichier index.html pour tout voir.
+
+## Pour en savoir plus
+
+Le projet était long à faire, ce n'était pas si simple honnêtement et on a eu énormément de soucis, donc on a dû réfléchir pour rendre ce meilleur code. On a ainsi procédé de la sorte :
+
+1. Réécriture du code : on a refait le code à 90% pour le rendre plus flexible avec nos ambitions
+2. Ajout de nouveautés : on a au fur et à mesure ajouté des features, individuellement. On a préféré se concentrer sur moins de features mais entièrement fonctionnelles plutôt que des bribes de codes inutiles.
+3. Ajout du menu, des documentations et de toute érgonomie pour l'utilisateur : après avoir fait le jeu, on s'est occupé du menu afin de rendre le jeu agréable et plaisant, avec des crédits, des paramètres, du lore.
+4. Création de la documentation (avec Doxygen). C'était le plus simple.
+
+Ci-dessous sont les features que nous devont initiallement ajouter, mais que nous avons pas fait pour diverses raisons.
 
 ### Liste des bonus à impletementer
 
@@ -140,22 +168,11 @@ Une fois le programme lancé, vous arriverez sur le menu principal. Dirigez-vous
 - Permet de jouer une seconde fois (directement, non gardé dans l'inventaire)
 - Déplacement x2 pendant 2 tours
 
-## Fait
-
-- Ajout de teleportation, murs a fréquence custom
-- Menu de création de joueur
-- Paramètres changeable depuis le menu
-- Menu
-- Paramètres avec fichier .yml
-- Jouer de 2 à 4
-- Réécriture du code entier
-- Gestion automatique des joueurs
-
 ## Annulé
-- ~~Inventaire joueur~~
-- ~~Fichier de score à lire/écrire, avec le score le plus haut pour chaque joueur~~
-- ~~Import du fichier~~
-- ~~[OPTIONNEL] Ajout de la création de grilles~~
+- ~~Ajout de bonus : ils apparaiteront tous les 5 rounds et il sera un bonus au hasard parmis la liste, il sera ensuite activable pendant 5 rounds, avant de disparaitre de l'utilisateur.~~ Annulé par complexité
+- ~~Inventaire joueur~~ Annulé par complexité
+- ~~Fichier de score à lire/écrire, avec le score le plus haut pour chaque joueur~~ Remplacé par plus concis (téléportation et menu)
+- ~~[OPTIONNEL] Ajout de la création de grilles~~ Annulé par complexité
 
 
 ## Licence

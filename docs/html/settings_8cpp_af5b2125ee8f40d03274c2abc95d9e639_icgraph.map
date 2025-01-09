@@ -1,0 +1,12 @@
+<map id="isValidType" name="isValidType">
+<area shape="rect" id="Node000001" title=" " alt="" coords="476,29,564,56"/>
+<area shape="rect" id="Node000002" href="$settings_8cpp.html#aa2a04f856cbb617009b78d274911d315" title=" " alt="" coords="338,29,428,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="461,45,429,45,429,40,461,40"/>
+<area shape="rect" id="Node000003" href="$menu_8cpp.html#a723f24eafae12b1c10b4dfd0ecdd9e1e" title=" " alt="" coords="148,29,290,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="322,45,290,45,290,40,322,40"/>
+<area shape="poly" id="edge6_Node000003_Node000003" title=" " alt="" coords="246,16,237,10,219,8,202,10,193,15,191,20,195,28,190,30,185,21,189,11,200,5,219,3,239,5,249,12"/>
+<area shape="rect" id="Node000004" href="$menu_8cpp.html#a870985f21a374a3a220e3ba5e8e2f8f3" title=" " alt="" coords="5,29,100,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="132,54,100,54,100,48,132,49"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="115,31,147,31,147,36,115,37"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="80,16,71,10,52,8,35,10,26,15,24,20,28,28,24,30,19,21,22,11,34,5,53,3,73,5,83,12"/>
+</map>

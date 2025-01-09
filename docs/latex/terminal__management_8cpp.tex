@@ -1,0 +1,100 @@
+\doxysection{src/terminal\+\_\+management.cpp File Reference}
+\hypertarget{terminal__management_8cpp}{}\label{terminal__management_8cpp}\index{src/terminal\_management.cpp@{src/terminal\_management.cpp}}
+{\ttfamily \#include "{}../include/terminal\+\_\+management.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$termios.\+h$>$}\newline
+Include dependency graph for terminal\+\_\+management.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{terminal__management_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{terminal__management_8cpp_a140978f3cbb62924ab34a54c0e6a5a94}{set\+Non\+Canonical\+Mode}} ()
+\item 
+void \mbox{\hyperlink{terminal__management_8cpp_a583d9921a02d187a64c5764fae621f26}{restore\+Default\+Mode}} ()
+\item 
+string \mbox{\hyperlink{terminal__management_8cpp_a64be29e1017e3924c649855884feb69f}{create\+Hyper\+Link}} (const string \&LINK, const string \&TEXT)
+\item 
+void \mbox{\hyperlink{terminal__management_8cpp_a9d7e8af417b6d543da691e9c0e2f6f9f}{clear\+Screen}} ()
+\item 
+void \mbox{\hyperlink{terminal__management_8cpp_a0d8991990c3a755d419a2f4dd56dfdc3}{set\+Color}} (const string \&COL)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{terminal__management_8cpp_a9d7e8af417b6d543da691e9c0e2f6f9f}\index{terminal\_management.cpp@{terminal\_management.cpp}!clearScreen@{clearScreen}}
+\index{clearScreen@{clearScreen}!terminal\_management.cpp@{terminal\_management.cpp}}
+\doxysubsubsection{\texorpdfstring{clearScreen()}{clearScreen()}}
+{\footnotesize\ttfamily \label{terminal__management_8cpp_a9d7e8af417b6d543da691e9c0e2f6f9f} 
+void clear\+Screen (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{terminal__management_8cpp_a9d7e8af417b6d543da691e9c0e2f6f9f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{terminal__management_8cpp_a64be29e1017e3924c649855884feb69f}\index{terminal\_management.cpp@{terminal\_management.cpp}!createHyperLink@{createHyperLink}}
+\index{createHyperLink@{createHyperLink}!terminal\_management.cpp@{terminal\_management.cpp}}
+\doxysubsubsection{\texorpdfstring{createHyperLink()}{createHyperLink()}}
+{\footnotesize\ttfamily \label{terminal__management_8cpp_a64be29e1017e3924c649855884feb69f} 
+string create\+Hyper\+Link (\begin{DoxyParamCaption}\item[{const string \&}]{LINK}{, }\item[{const string \&}]{TEXT}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{terminal__management_8cpp_a64be29e1017e3924c649855884feb69f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{terminal__management_8cpp_a583d9921a02d187a64c5764fae621f26}\index{terminal\_management.cpp@{terminal\_management.cpp}!restoreDefaultMode@{restoreDefaultMode}}
+\index{restoreDefaultMode@{restoreDefaultMode}!terminal\_management.cpp@{terminal\_management.cpp}}
+\doxysubsubsection{\texorpdfstring{restoreDefaultMode()}{restoreDefaultMode()}}
+{\footnotesize\ttfamily \label{terminal__management_8cpp_a583d9921a02d187a64c5764fae621f26} 
+void restore\+Default\+Mode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{terminal__management_8cpp_a583d9921a02d187a64c5764fae621f26_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{terminal__management_8cpp_a0d8991990c3a755d419a2f4dd56dfdc3}\index{terminal\_management.cpp@{terminal\_management.cpp}!setColor@{setColor}}
+\index{setColor@{setColor}!terminal\_management.cpp@{terminal\_management.cpp}}
+\doxysubsubsection{\texorpdfstring{setColor()}{setColor()}}
+{\footnotesize\ttfamily \label{terminal__management_8cpp_a0d8991990c3a755d419a2f4dd56dfdc3} 
+void set\+Color (\begin{DoxyParamCaption}\item[{const string \&}]{COL}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{terminal__management_8cpp_a0d8991990c3a755d419a2f4dd56dfdc3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{terminal__management_8cpp_a140978f3cbb62924ab34a54c0e6a5a94}\index{terminal\_management.cpp@{terminal\_management.cpp}!setNonCanonicalMode@{setNonCanonicalMode}}
+\index{setNonCanonicalMode@{setNonCanonicalMode}!terminal\_management.cpp@{terminal\_management.cpp}}
+\doxysubsubsection{\texorpdfstring{setNonCanonicalMode()}{setNonCanonicalMode()}}
+{\footnotesize\ttfamily \label{terminal__management_8cpp_a140978f3cbb62924ab34a54c0e6a5a94} 
+void set\+Non\+Canonical\+Mode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{terminal__management_8cpp_a140978f3cbb62924ab34a54c0e6a5a94_icgraph}
+\end{center}
+\end{figure}
